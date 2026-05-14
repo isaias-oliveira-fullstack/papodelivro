@@ -26,12 +26,13 @@ routes.get('/health', async (_req: Request, res: Response) => {
       database: 'Conectado',
       timestamp: new Date().toISOString()
     });
-  } catch (error) {
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : String(error);
     console.error('Erro no health check:', error);
     res.status(500).json({
       status: 'ERROR',
       message: 'Erro na conexão com banco de dados',
-      error: error.message,
+      error: message,
       timestamp: new Date().toISOString()
     });
   }

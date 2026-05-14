@@ -93,6 +93,20 @@ class App {
   }
 
   routes() {
+    this.server.get("/api/health", async (req: Request, res: Response) => {
+      try {
+        await sequelize.authenticate();
+        res.status(200).json({
+          status: "healthy",
+          database: "connected",
+          timestamp: new Date().toISOString(),
+        });
+      } catch (error: unknown) {
+        const message = error instanceof Error ? error.message : String(error);
+        res.status(503).json({ status: "unavailable", error: message });
+      }
+    });
+
     this.server.get("/health-check", async (req: Request, res: Response) => {
       try {
         await sequelize.authenticate();
