@@ -6,7 +6,8 @@
     "dev": "npm run dev --prefix client",
     "build": "npm run build --prefix client",
     "typecheck": "npm run typecheck --prefix client",
-    "preview": "npm run preview --prefix client"
+    "preview": "npm run preview --prefix client",
+    "vercel-build": "npm run vercel-build --prefix server"
   },
   "devDependencies": {
     "typescript": "^6.0.3"
