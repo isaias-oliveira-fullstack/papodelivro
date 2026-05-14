@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import { Sequelize, Model, ModelStatic } from 'sequelize';
-import config from '../config/database';
+import config from '../config/database.simple';
 
 const basename = path.basename(__filename);
 const db: Record<string, ModelStatic<Model> | any> = {};
@@ -77,8 +77,13 @@ const authenticateAndSync = async () => {
   }
 };
 
-const ready = authenticateAndSync();
-
-db.ready = ready;
+// Só conecta automaticamente se não estiver no Vercel
+if (!process.env.VERCEL) {
+  const ready = authenticateAndSync();
+  db.ready = ready;
+} else {
+  // No Vercel, conecta apenas quando necessário
+  db.ready = Promise.resolve();
+}
 
 export = db;

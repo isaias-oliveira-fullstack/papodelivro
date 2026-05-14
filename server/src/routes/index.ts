@@ -15,6 +15,28 @@ routes.get('/', (_req: Request, res: Response) => {
   res.json({ message: "Bem-vindo(a) à API Papo de Livro!" });
 });
 
+routes.get('/health', async (_req: Request, res: Response) => {
+  try {
+    // Testa conexão com banco de dados
+    const db = require('../models');
+    await db.sequelize.authenticate();
+    res.json({
+      status: 'OK',
+      message: 'API Papo de Livro está funcionando!',
+      database: 'Conectado',
+      timestamp: new Date().toISOString()
+    });
+  } catch (error) {
+    console.error('Erro no health check:', error);
+    res.status(500).json({
+      status: 'ERROR',
+      message: 'Erro na conexão com banco de dados',
+      error: error.message,
+      timestamp: new Date().toISOString()
+    });
+  }
+});
+
 routes.use('/auth', authRoutes);
 routes.use(contactRoutes);
 routes.use(promptRoutes);
