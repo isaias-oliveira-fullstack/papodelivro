@@ -133,4 +133,6 @@ class App {
   }
 }
 
-export default new App().server;
+const server = new App().server;
+export default server;
+module.exports = server;

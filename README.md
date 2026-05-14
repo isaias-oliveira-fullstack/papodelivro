@@ -305,8 +305,8 @@ leitores e compartilhamento de resenhas.
 
 O projeto pode ser publicado utilizando:
 
-- Vercel (Frontend)
-- Vercel Serverless Functions (Backend)
+- **Vercel (Frontend):** https://papodelivro.vercel.app
+- **Vercel Serverless Functions (Backend):** https://papodelivro-backend.vercel.app
 
 > Não é necessário instalação após publicação — basta acessar o link.
 
