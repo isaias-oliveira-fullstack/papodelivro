@@ -1,4 +1,3 @@
-````md
 # Papo de Livro - Plataforma Social de Resenhas de Livros
 
 ![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?logo=typescript)
@@ -62,7 +61,7 @@ Interface da plataforma com:
 
 ## Estrutura do projeto
 
-\```bash
+```
 papodelivro/
 ├── client/
 │   ├── src/
@@ -97,7 +96,7 @@ papodelivro/
 ├── README.md
 ├── package.json
 └── LICENSE
-\```
+```
 
 ## Tecnologias utilizadas
 
@@ -118,7 +117,7 @@ moderna, responsiva e consistente.
 
 ### Card de Livro
 
-\```tsx
+```tsx
 <div className="bg-zinc-900 rounded-xl shadow-lg p-4">
   <img src={book.cover} alt={book.title} />
 
@@ -143,11 +142,11 @@ moderna, responsiva e consistente.
     Ver detalhes
   </button>
 </div>
-\```
+```
 
 ### Busca Dinâmica
 
-\```tsx
+```tsx
 <input
   type="text"
   placeholder="Buscar livros..."
@@ -160,11 +159,11 @@ moderna, responsiva e consistente.
     bg-zinc-900
   "
 />
-\```
+```
 
 ### Sistema de Avaliação
 
-\```tsx
+```tsx
 <div className="flex gap-1">
   {Array.from({ length: 5 }).map((_, index) => (
     <Star
@@ -177,11 +176,11 @@ moderna, responsiva e consistente.
     />
   ))}
 </div>
-\```
+```
 
 ### Responsividade com Tailwind CSS
 
-\```tsx
+```tsx
 <div className="
   grid
   grid-cols-1
@@ -189,7 +188,7 @@ moderna, responsiva e consistente.
   lg:grid-cols-4
   gap-4
 ">
-\```
+```
 
 ### Estilização com Tailwind CSS
 
@@ -203,41 +202,41 @@ moderna, responsiva e consistente.
 
 ### Clone o repositório
 
-\```bash
+```bash
 git clone https://github.com/isaias-oliveira-fullstack/papodelivro.git
-\```
+```
 
 ### Entre na pasta do projeto
 
-\```bash
+```bash
 cd papodelivro
-\```
+```
 
 ## Execute o Frontend
 
 ### Entre na pasta do client
 
-\```bash
+```bash
 cd client
-\```
+```
 
 ### Instale as dependências
 
-\```bash
+```bash
 npm install
-\```
+```
 
 ### Crie o arquivo `.env`
 
-\```env
+```env
 VITE_API_URL=http://localhost:3333
-\```
+```
 
 ### Execute o projeto
 
-\```bash
+```bash
 npm run dev
-\```
+```
 
 Abra no navegador o endereço indicado pelo Vite
 (geralmente `http://localhost:5173`).
@@ -246,36 +245,36 @@ Abra no navegador o endereço indicado pelo Vite
 
 ### Entre na pasta do server
 
-\```bash
+```bash
 cd server
-\```
+```
 
 ### Instale as dependências
 
-\```bash
+```bash
 npm install
-\```
+```
 
 ### Crie o arquivo `.env`
 
-\```env
+```env
 PORT=3333
 SUPABASE_URL=your_url
 SUPABASE_KEY=your_key
 JWT_SECRET=your_secret
-\```
+```
 
 ### Execute o servidor
 
-\```bash
+```bash
 npm run dev
-\```
+```
 
 Backend disponível em:
 
-\```bash
+```bash
 http://localhost:3333
-\```
+```
 
 ## Aprendizados
 
@@ -325,4 +324,3 @@ Veja o arquivo **[LICENSE](./LICENSE)** para mais detalhes.
 
 Projeto desenvolvido por **Isaias Oliveira**.  
 Conecte-se comigo no **[in/isaias-oliveira-dev](https://www.linkedin.com/in/isaias-oliveira-dev/)**
-````
