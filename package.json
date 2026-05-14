@@ -1,0 +1,14 @@
+{
+  "name": "papodelivro",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "npm run dev --prefix client",
+    "build": "npm run build --prefix client",
+    "typecheck": "npm run typecheck --prefix client",
+    "preview": "npm run preview --prefix client"
+  },
+  "devDependencies": {
+    "typescript": "^6.0.3"
+  }
+}
