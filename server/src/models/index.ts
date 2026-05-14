@@ -1,5 +1,6 @@
 import fs from 'fs';
 import path from 'path';
+import 'pg';
 import { Sequelize, Model, ModelStatic } from 'sequelize';
 import config from '../config/database.simple';
 
