@@ -37,44 +37,30 @@ const localImagesMap: Record<string, string> = {
 
 export const getImageUrl = (book?: Partial<Book>): string => {
   if (!book) {
-    return "https://placehold.co/200x300/5d21d1/ffffff?text=Sem+Capa";
+    return "https://placehold.co/200x300?text=Sem+Capa";
   }
 
-  const imageUrlCandidate =
-    book.cover_url || book.full_cover_url || "";
-
-  const localImage = localImagesMap[imageUrlCandidate];
-
-  if (localImage) {
-    return localImage;
+  if (book.full_cover_url && localImagesMap[book.full_cover_url]) {
+    return localImagesMap[book.full_cover_url];
   }
+
+  if (book.cover_url && localImagesMap[book.cover_url]) {
+    return localImagesMap[book.cover_url];
+  }
+
+  const imageUrl = book.cover_url || book.full_cover_url;
 
   if (
-    imageUrlCandidate.startsWith("http://") ||
-    imageUrlCandidate.startsWith("https://")
+    imageUrl &&
+    (imageUrl.startsWith("http://") ||
+      imageUrl.startsWith("https://"))
   ) {
-    return imageUrlCandidate;
+    return imageUrl;
   }
 
-  const fileName = imageUrlCandidate
-  .replace("/assets/", "")
-  .replace(/^assets\//, "");
+  if (imageUrl) {
+    return `${API_ORIGIN}/files/${imageUrl.replace(/^\/+/, "")}`;
+  }
 
-const extension = fileName.substring(fileName.lastIndexOf("."));
-
-const nameWithoutExtension = fileName.substring(
-  0,
-  fileName.lastIndexOf(".")
-);
-
-const originalName = nameWithoutExtension.includes("-")
-  ? nameWithoutExtension.substring(
-      0,
-      nameWithoutExtension.lastIndexOf("-")
-    )
-  : nameWithoutExtension;
-
-const cleanFileName = `${originalName}${extension}`;
-
-  return `${API_ORIGIN}/files/${cleanFileName}`;
+  return "https://placehold.co/200x300?text=Sem+Capa";
 };
