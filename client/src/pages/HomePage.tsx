@@ -35,9 +35,9 @@ const HomePage = () => {
             const mockVersion = mockBooksMap.get(apiBook.slug)
             if (mockVersion) {
               return {
-                ...mockVersion,
                 ...apiBook,
-                cover_url: mockVersion?.cover_url || apiBook.cover_url,
+                ...mockVersion,
+                cover_url: mockVersion?.cover_url ?? apiBook.cover_url,
                 isPlaceholder: !apiBook.summary,
               }
             }
