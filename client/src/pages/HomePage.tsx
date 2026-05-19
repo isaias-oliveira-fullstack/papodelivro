@@ -14,13 +14,12 @@ import type { Book } from "@/types";
 const HomePage = () => {
   const [latestBooks, setLatestBooks] = useState<Book[]>([]);
   const [loading, setLoading] = useState(true);
-  //const [currentSlide, setCurrentSlide] = useState(0)
-  //const { signed } = useAuth()
 
   useEffect(() => {
     const fetchLatestBooks = async () => {
       try {
         const response = await api.get("/books?page=1&limit=8");
+
         const apiBooks: Book[] = Array.isArray(response.data)
           ? response.data
           : Array.isArray(response.data.books)
@@ -35,24 +34,31 @@ const HomePage = () => {
           .map((apiBook) => {
             const mockVersion = mockBooksMap.get(apiBook.slug);
 
-            if (mockVersion) {
-              return {
-                ...apiBook,
-                ...mockVersion,
-                isPlaceholder: !apiBook.summary,
-              };
-            }
+            const mergedBook = {
+              ...mockVersion,
+              ...apiBook,
+              isPlaceholder: !apiBook.summary,
+            };
 
-            return apiBook;
+            return {
+              ...mergedBook,
+              cover_url: getImageUrl(mergedBook),
+            };
           })
           .filter(Boolean) as Book[];
 
+        // Completa com mocks caso venha menos de 8 livros
         if (finalBookList.length < 8) {
           const existingSlugs = new Set(finalBookList.map((b) => b.slug));
+
           const neededMocks = mockLivros
             .filter((b) => !existingSlugs.has(b.slug))
             .slice(0, 8 - finalBookList.length)
-            .map((book) => ({ ...book, cover_url: getImageUrl(book) }));
+            .map((book) => ({
+              ...book,
+              cover_url: getImageUrl(book),
+            }));
+
           finalBookList.push(...neededMocks);
         }
 
@@ -62,10 +68,12 @@ const HomePage = () => {
           "Erro ao buscar os destaques, usando dados locais:",
           error,
         );
+
         const formattedMockBooks = mockLivros.slice(0, 8).map((book) => ({
           ...book,
           cover_url: getImageUrl(book),
         }));
+
         setLatestBooks(formattedMockBooks);
       } finally {
         setLoading(false);
@@ -78,8 +86,11 @@ const HomePage = () => {
   useEffect(() => {
     if (latestBooks.length > 0) {
       const timer = setInterval(() => {
-        //setCurrentSlide((prevSlide) => (prevSlide + 1) % Math.min(latestBooks.length, 5))
+        // setCurrentSlide((prevSlide) =>
+        //   (prevSlide + 1) % Math.min(latestBooks.length, 5)
+        // )
       }, 3000);
+
       return () => clearInterval(timer);
     }
   }, [latestBooks]);
