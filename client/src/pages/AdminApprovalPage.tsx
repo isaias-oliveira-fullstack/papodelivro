@@ -223,9 +223,7 @@ const AdminApprovalPage = () => {
       if (coverImage && bookId) {
         const coverFormData = new FormData()
         coverFormData.append('coverImage', coverImage)
-        await api.patch(`/admin/books/${bookId}/cover`, coverFormData, {
-          headers: { 'Content-Type': 'multipart/form-data' },
-        })
+        await api.patch(`/admin/books/${bookId}/cover`, coverFormData)
       }
 
       setSelectedSummaryId(null)

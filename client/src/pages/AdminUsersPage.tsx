@@ -80,10 +80,11 @@ const AdminUsersPage = () => {
       setEditingUserId(null)
       setMessage('Usuário atualizado com sucesso.')
     } catch (err: unknown) {
-      const message =
+      const errorData =
         typeof err === 'object' && err !== null && 'response' in err
           ? (err as any).response?.data?.error
-          : 'Não foi possível atualizar o usuário.'
+          : null
+      const message = typeof errorData === 'string' ? errorData : 'Não foi possível atualizar o usuário.'
       setError(message)
     }
   }

@@ -37,10 +37,11 @@ const ProfilePage = () => {
       setMessage('Dados atualizados com sucesso.')
       setPassword('')
     } catch (err: unknown) {
-      const message =
+      const errorData =
         typeof err === 'object' && err !== null && 'response' in err
           ? (err as any).response?.data?.error
-          : 'Não foi possível atualizar o perfil.'
+          : null
+      const message = typeof errorData === 'string' ? errorData : 'Não foi possível atualizar o perfil.'
       setError(message)
     } finally {
       setLoading(false)

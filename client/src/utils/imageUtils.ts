@@ -35,38 +35,45 @@ const localImagesMap: Record<string, string> = {
   "/src/assets/diariodeannefrank.jpg": diarioDeAnneFrankCover,
 };
 
-export const getImageUrl = (book?: Partial<Book>): string => {
+export const getImageUrl = (
+  book?: Partial<Book>
+): string => {
+  // fallback
   if (!book) {
     return "https://placehold.co/200x300?text=Sem+Capa";
   }
 
-  // PRIORIDADE 1:
-  // tenta imagem local do mockData
-  if (book.full_cover_url && localImagesMap[book.full_cover_url]) {
-    return localImagesMap[book.full_cover_url];
+  const imageUrl =
+    book.cover_url || book.full_cover_url;
+
+  // sem imagem
+  if (!imageUrl) {
+    return "https://placehold.co/200x300?text=Sem+Capa";
   }
 
-  if (book.cover_url && localImagesMap[book.cover_url]) {
-    return localImagesMap[book.cover_url];
+  // PRIORIDADE 1:
+  // imagens locais importadas
+  if (localImagesMap[imageUrl]) {
+    return localImagesMap[imageUrl];
   }
 
   // PRIORIDADE 2:
-  // imagem externa completa
-  const imageUrl = book.cover_url || book.full_cover_url;
-
+  // URL externa completa
   if (
-    imageUrl &&
-    (imageUrl.startsWith("http://") ||
-      imageUrl.startsWith("https://"))
+    imageUrl.startsWith("http://") ||
+    imageUrl.startsWith("https://")
   ) {
     return imageUrl;
   }
 
   // PRIORIDADE 3:
-  // imagem do backend
-  if (imageUrl) {
-    return `${API_ORIGIN}/files/${imageUrl.replace(/^\/+/, "")}`;
+  // pega somente nome da imagem
+  const fileName = imageUrl.split("/").pop();
+
+  if (!fileName) {
+    return "https://placehold.co/200x300?text=Sem+Capa";
   }
 
-  return "https://placehold.co/200x300?text=Sem+Capa";
+  // backend
+  return `${API_ORIGIN}/files/${fileName}`;
 };

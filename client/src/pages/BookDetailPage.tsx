@@ -350,7 +350,7 @@ const BookDetailPage = () => {
                 <div className="mt-5 flex flex-col gap-3 sm:flex-row sm:justify-center">
                   {signed ? (
                     <Link
-                      to="/enviar-resenha"
+                      to="/enviar-resumo"
                       state={{ book: bookData }}
                       className="inline-flex items-center justify-center rounded-full bg-slate-950 px-6 py-3 text-sm font-semibold text-white transition hover:bg-slate-800 dark:bg-slate-100 dark:text-slate-950 dark:hover:bg-slate-200"
                     >

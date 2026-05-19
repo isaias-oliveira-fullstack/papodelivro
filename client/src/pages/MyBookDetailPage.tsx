@@ -98,7 +98,8 @@ const MyBookDetailPage = () => {
       setSuccess('Livro atualizado com sucesso.')
     } catch (err: unknown) {
       console.error(err)
-      const message = typeof err === 'object' && err !== null && 'response' in err ? (err as any).response?.data?.error : null
+      const errorData = typeof err === 'object' && err !== null && 'response' in err ? (err as any).response?.data?.error : null
+      const message = typeof errorData === 'string' ? errorData : null
       setError(message || 'Não foi possível atualizar o livro.')
     } finally {
       setSubmitting(false)

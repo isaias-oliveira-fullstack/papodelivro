@@ -165,7 +165,8 @@ const AdminBooksPage = () => {
       resetForm()
     } catch (err: unknown) {
       console.error(err)
-      const message = typeof err === 'object' && err !== null && 'response' in err ? (err as any).response?.data?.error : null
+      const errorData = typeof err === 'object' && err !== null && 'response' in err ? (err as any).response?.data?.error : null
+      const message = typeof errorData === 'string' ? errorData : null
       setError(message || 'Ocorreu um erro ao salvar o livro.')
     } finally {
       setSubmitting(false)

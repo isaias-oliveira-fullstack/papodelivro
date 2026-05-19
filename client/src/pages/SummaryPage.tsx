@@ -38,6 +38,28 @@ const SummaryPage = () => {
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
 
+  const getErrorMessage = (err: unknown) => {
+    if (typeof err === "object" && err !== null) {
+      const anyErr = err as any;
+      const data = anyErr.response?.data;
+
+      if (typeof data === "string") {
+        return data;
+      }
+      if (typeof data?.error === "string") {
+        return data.error;
+      }
+      if (typeof data?.error?.message === "string") {
+        return data.error.message;
+      }
+      if (typeof data?.message === "string") {
+        return data.message;
+      }
+    }
+
+    return "Erro desconhecido ao enviar.";
+  };
+
   useEffect(() => {
     if (state) {
       setTitle(prefilledBook?.title ?? "");
@@ -117,9 +139,7 @@ const SummaryPage = () => {
           formData.append("coverImage", coverImage);
         }
 
-        await api.patch(`/summaries/${summaryToEdit?.id}`, formData, {
-          headers: { "Content-Type": "multipart/form-data" },
-        });
+        await api.patch(`/summaries/${summaryToEdit?.id}`, formData);
         alert("Resumo atualizado com sucesso!");
       } else {
         const formData = new FormData();
@@ -143,20 +163,13 @@ const SummaryPage = () => {
           return;
         }
 
-        await api.post("/summaries", formData, {
-          headers: { "Content-Type": "multipart/form-data" },
-        });
+        await api.post("/summaries", formData);
         alert("Resumo enviado para avaliação com sucesso!");
       }
 
       navigate("/meus-resumos");
     } catch (err: unknown) {
-      const errorMessage =
-        typeof err === "object" && err !== null && "response" in err
-          ? ((err as any).response?.data?.error ??
-            "Erro desconhecido ao enviar.")
-          : "Erro desconhecido ao enviar.";
-      setError(errorMessage);
+      setError(getErrorMessage(err));
     } finally {
       setIsSubmitting(false);
     }

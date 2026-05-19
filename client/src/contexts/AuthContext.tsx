@@ -55,10 +55,12 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
       return apiUser;
     } catch (error: unknown) {
-      const message =
+      const errorData =
         typeof error === "object" && error !== null && "response" in error
           ? (error as any).response?.data?.error
           : null;
+      
+      const message = typeof errorData === "string" ? errorData : null;
 
       throw new Error(message || "Falha no login");
     }
@@ -97,10 +99,12 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
       return apiUser;
     } catch (error: unknown) {
-      const message =
+      const errorData =
         typeof error === "object" && error !== null && "response" in error
           ? (error as any).response?.data?.error
           : null;
+      
+      const message = typeof errorData === "string" ? errorData : null;
 
       toast.error(message || "Erro ao cadastrar.");
 

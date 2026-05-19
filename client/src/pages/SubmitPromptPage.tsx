@@ -60,10 +60,11 @@ const SubmitPromptPage = () => {
       navigate('/')
     } catch (err) {
       console.error('Erro ao enviar prompt:', err)
-      const apiError =
+      const errorData =
         err && typeof err === 'object' && 'response' in err && (err as any).response?.data?.error
           ? (err as any).response.data.error
-          : 'Falha ao enviar o prompt. Tente novamente mais tarde.'
+          : null
+      const apiError = typeof errorData === 'string' ? errorData : 'Falha ao enviar o prompt. Tente novamente mais tarde.'
       setError(apiError)
     } finally {
       setIsSubmitting(false)
