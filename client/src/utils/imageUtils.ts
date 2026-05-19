@@ -1,8 +1,6 @@
 import type { Book } from "@/types";
 import { API_ORIGIN } from '@/services/api.config';
 
-
-
 import lordOfTheRingsCover from '@/assets/lordoftherings.jpg';
 import orwell1984Cover from '@/assets/1984.jpg';
 import toKillAMockingbirdCover from '@/assets/tosol.jpg';
@@ -83,5 +81,5 @@ export const getImageUrl = (book?: Partial<Book>): string => {
   // Backend
   const backendBaseUrl = API_ORIGIN || '';
 
-  return `${backendBaseUrl}/files/${imageUrlCandidate}`;
+  return `${backendBaseUrl}/files${imageUrlCandidate}`;
 };
