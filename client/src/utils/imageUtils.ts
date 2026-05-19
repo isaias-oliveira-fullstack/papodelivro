@@ -81,5 +81,5 @@ export const getImageUrl = (book?: Partial<Book>): string => {
   // Backend
   const backendBaseUrl = API_ORIGIN || '';
 
-  return `${backendBaseUrl}/files${imageUrlCandidate}`;
+  return `${backendBaseUrl}/files/${imageUrlCandidate}`;
 };
