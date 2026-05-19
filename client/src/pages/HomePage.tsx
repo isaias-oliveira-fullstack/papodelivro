@@ -30,20 +30,25 @@ const HomePage = () => {
         ? response.data.books
         : [];
 
-      const finalBookList = apiBooks.map((apiBook) => {
-        return {
-          ...apiBook,
-          // 👇 fallback simples (SEM função externa)
-          cover_url: apiBook.cover_url || "",
-          isPlaceholder: !apiBook.summary,
-        };
-      });
+      // API primeiro
+      const finalList: Book[] = [...apiBooks];
 
-      setLatestBooks(finalBookList.slice(0, 8));
+      // completa com mock se faltar
+      if (finalList.length < 8) {
+        const existingSlugs = new Set(finalList.map((b) => b.slug));
+
+        const neededMocks = mockLivros
+          .filter((b) => !existingSlugs.has(b.slug))
+          .slice(0, 8 - finalList.length);
+
+        finalList.push(...neededMocks);
+      }
+
+      setLatestBooks(finalList);
     } catch (error) {
-      console.error("Erro ao buscar os destaques:", error);
+      console.error("Erro ao buscar:", error);
 
-      // fallback mock SEM transformação
+      // fallback total
       setLatestBooks(mockLivros.slice(0, 8));
     } finally {
       setLoading(false);
