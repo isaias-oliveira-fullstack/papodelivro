@@ -6,12 +6,9 @@ import Steps from "@/components/Steps";
 import Features from "@/components/Features";
 import Contact from "@/components/Contact";
 import CTA from "@/components/CTA";
-
 import { useState, useEffect } from 'react'
-//import { Link } from 'react-router-dom'
 import api from '@/services/api'
 import mockLivros from '@/data/mockData'
-//import { useAuth } from '@/contexts/AuthContext'
 import { getImageUrl } from '@/utils/imageUtils'
 import type { Book } from '@/types'
 
@@ -40,6 +37,7 @@ const HomePage = () => {
               return {
                 ...mockVersion,
                 ...apiBook,
+                cover_url: apiBook.cover_url || mockVersion?.cover_url,
                 isPlaceholder: !apiBook.summary,
               }
             }
