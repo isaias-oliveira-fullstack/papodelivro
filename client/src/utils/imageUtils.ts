@@ -56,10 +56,25 @@ export const getImageUrl = (book?: Partial<Book>): string => {
     return imageUrlCandidate;
   }
 
-  const cleanFileName = imageUrlCandidate
-    .replace("/assets/", "")
-    .replace(/^assets\//, "")
-    .replace(/-[A-Za-z0-9_-]+(?=\.(jpg|jpeg|png|webp))/i, "");
+  const fileName = imageUrlCandidate
+  .replace("/assets/", "")
+  .replace(/^assets\//, "");
+
+const extension = fileName.substring(fileName.lastIndexOf("."));
+
+const nameWithoutExtension = fileName.substring(
+  0,
+  fileName.lastIndexOf(".")
+);
+
+const originalName = nameWithoutExtension.includes("-")
+  ? nameWithoutExtension.substring(
+      0,
+      nameWithoutExtension.lastIndexOf("-")
+    )
+  : nameWithoutExtension;
+
+const cleanFileName = `${originalName}${extension}`;
 
   return `${API_ORIGIN}/files/${cleanFileName}`;
 };
