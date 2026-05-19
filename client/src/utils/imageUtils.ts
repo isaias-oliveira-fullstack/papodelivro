@@ -35,45 +35,44 @@ const localImagesMap: Record<string, string> = {
   "/src/assets/diariodeannefrank.jpg": diarioDeAnneFrankCover,
 };
 
-export const getImageUrl = (
-  book?: Partial<Book>
-): string => {
-  // fallback
+export const getImageUrl = (book?: Partial<Book>): string => {
   if (!book) {
-    return "https://placehold.co/200x300?text=Sem+Capa";
+    return "https://placehold.co/200x300/5d21d1/ffffff?text=Sem+Capa";
   }
 
-  const imageUrl =
-    book.cover_url || book.full_cover_url;
+  const imageUrlCandidate =
+    book.cover_url || book.full_cover_url || "";
 
-  // sem imagem
-  if (!imageUrl) {
-    return "https://placehold.co/200x300?text=Sem+Capa";
+  // =========================
+  // IMAGEM LOCAL DO MOCK
+  // =========================
+  const localImage = localImagesMap[imageUrlCandidate];
+
+  if (localImage) {
+    return localImage;
   }
 
-  // PRIORIDADE 1:
-  // imagens locais importadas
-  if (localImagesMap[imageUrl]) {
-    return localImagesMap[imageUrl];
-  }
-
-  // PRIORIDADE 2:
-  // URL externa completa
+  // =========================
+  // URL EXTERNA
+  // =========================
   if (
-    imageUrl.startsWith("http://") ||
-    imageUrl.startsWith("https://")
+    imageUrlCandidate.startsWith("http://") ||
+    imageUrlCandidate.startsWith("https://")
   ) {
-    return imageUrl;
+    return imageUrlCandidate;
   }
 
-  // PRIORIDADE 3:
-  // pega somente nome da imagem
-  const fileName = imageUrl.split("/").pop();
+  // =========================
+  // REMOVE /assets/
+  // REMOVE HASH -CTb483ej
+  // =========================
+  const cleanFileName = imageUrlCandidate
+    .replace("/assets/", "")
+    .replace(/^assets\//, "")
+    .replace(/-[A-Za-z0-9]+(?=\.(jpg|jpeg|png|webp))/i, "");
 
-  if (!fileName) {
-    return "https://placehold.co/200x300?text=Sem+Capa";
-  }
-
-  // backend
-  return `${API_ORIGIN}/files/${fileName}`;
+  // =========================
+  // URL FINAL DO BACKEND
+  // =========================
+  return `${API_ORIGIN}/files/${cleanFileName}`;
 };
