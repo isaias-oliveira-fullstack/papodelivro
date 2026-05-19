@@ -1,4 +1,5 @@
 import type { Book } from "@/types";
+import { API_ORIGIN } from '@/services/api.config';
 
 
 
@@ -80,11 +81,7 @@ export const getImageUrl = (book?: Partial<Book>): string => {
   }
 
   // Backend
-  const rawApiUrl = import.meta.env.VITE_API_URL ?? "";
-
-  const backendBaseUrl = rawApiUrl
-    .replace(/\/$/, "")
-    .replace(/\/api$/, "");
+  const backendBaseUrl = API_ORIGIN || '';
 
   return `${backendBaseUrl}/files/${imageUrlCandidate}`;
 };
