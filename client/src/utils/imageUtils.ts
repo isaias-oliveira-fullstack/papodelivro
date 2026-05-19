@@ -43,18 +43,12 @@ export const getImageUrl = (book?: Partial<Book>): string => {
   const imageUrlCandidate =
     book.cover_url || book.full_cover_url || "";
 
-  // =========================
-  // IMAGEM LOCAL DO MOCK
-  // =========================
   const localImage = localImagesMap[imageUrlCandidate];
 
   if (localImage) {
     return localImage;
   }
 
-  // =========================
-  // URL EXTERNA
-  // =========================
   if (
     imageUrlCandidate.startsWith("http://") ||
     imageUrlCandidate.startsWith("https://")
@@ -62,17 +56,10 @@ export const getImageUrl = (book?: Partial<Book>): string => {
     return imageUrlCandidate;
   }
 
-  // =========================
-  // REMOVE /assets/
-  // REMOVE HASH -CTb483ej
-  // =========================
   const cleanFileName = imageUrlCandidate
     .replace("/assets/", "")
     .replace(/^assets\//, "")
-    .replace(/-[A-Za-z0-9]+(?=\.(jpg|jpeg|png|webp))/i, "");
+    .replace(/-[A-Za-z0-9_-]+(?=\.(jpg|jpeg|png|webp))/i, "");
 
-  // =========================
-  // URL FINAL DO BACKEND
-  // =========================
   return `${API_ORIGIN}/files/${cleanFileName}`;
 };
