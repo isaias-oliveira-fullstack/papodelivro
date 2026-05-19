@@ -37,7 +37,7 @@ const HomePage = () => {
               return {
                 ...mockVersion,
                 ...apiBook,
-                cover_url: apiBook.cover_url || mockVersion?.cover_url,
+                cover_url: mockVersion?.cover_url || apiBook.cover_url,
                 isPlaceholder: !apiBook.summary,
               }
             }
