@@ -1,9 +1,7 @@
 import { useEffect, useState } from "react";
-import useTemplateScripts from "@/hooks/useTemplateScripts";
 
 const BackToTop = () => {
   const [visible, setVisible] = useState(false);
-  const { getIcon } = useTemplateScripts();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -22,14 +20,13 @@ const BackToTop = () => {
   };
 
   return (
-    <button
+    <i
       onClick={scrollTop}
-      className={`scroll-top fixed bottom-6 right-6 bg-primary w-12 h-12 rounded-full flex items-center justify-center shadow-lg transition-all cursor-pointer ${
+      className={`lni lni-chevron-up text-xl scroll-top fixed bottom-6 right-6 text-slate-100 bg-primary w-12 h-12 rounded-full flex items-center justify-center shadow-lg shadow-primary/60 transition-all cursor-pointer ${
         visible ? "opacity-100 flex" : "opacity-0 pointer-events-none"
       }`}
     >
-     {getIcon("chevron-up", "text-white", 25)}
-    </button>
+    </i>
   );
 };
 

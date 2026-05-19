@@ -1,38 +1,38 @@
-import useTemplateScripts from "@/hooks/useTemplateScripts";
+import { Card } from "./ui/card";
 
 const features = [
   {
-    icon: "book-open" as const,
+    icon: "lni lni-books-2",
     title: "Catálogo Literário",
     description:
       "Explore uma biblioteca completa com diversos títulos e descubra novas leituras que combinam com seu gosto.",
   },
   {
-    icon: "pen-line" as const,
+    icon: "lni lni-pen-to-square",
     title: "Resenhas Literárias",
     description:
       "Escreva suas próprias resenhas e leia opiniões detalhadas de outros leitores sobre diferentes livros.",
   },
   {
-    icon: "heart" as const,
+    icon: "lni lni-heart" as const,
     title: "Livros Favoritos",
     description:
       "Salve seus livros preferidos e organize sua estante pessoal para acessar facilmente quando quiser.",
   },
   {
-    icon: "users" as const,
+    icon: "lni lni-user-multiple-4" as const,
     title: "Rede Social",
     description:
       "Conecte-se com outros leitores, compartilhe experiências e descubra recomendações da comunidade.",
   },
   {
-    icon: "search" as const,
+    icon: "lni lni-search-text" as const,
     title: "Busca Avançada",
     description:
       "Encontre livros rapidamente usando filtros por título, autor ou gênero de forma prática e eficiente no dia a dia.",
   },
   {
-    icon: "star" as const,
+    icon: "lni lni-star-fat" as const,
     title: "Avaliações Gerais",
     description:
       "Dê notas aos livros e acompanhe a média geral baseada nas avaliações feitas por outros leitores da plataforma.",
@@ -40,7 +40,6 @@ const features = [
 ];
 
 const Features = () => {
-  const { getIcon } = useTemplateScripts();
 
   return (
     <section id="recursos" className="pt-20" data-delay="200">
@@ -62,18 +61,18 @@ const Features = () => {
 
         <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
           {features.map((feature) => (
-            <div
+            <Card
               key={feature.title}
               className="shadow-lg rounded-lg overflow-hidden border-slate-200 hover:shadow-2xl transition-all duration-300 p-6 bg-gray-200 dark:border-slate-700 dark:bg-slate-900/95"
             >
-              <div className="flex items-center justify-center w-16 h-16 mb-8 text-3xl text-white bg-primary border-0 rounded-lg">
-                {getIcon(feature.icon, "text-white")}
+              <div className="flex items-center justify-center w-16 h-16 mb-3 text-4xl text-white bg-primary border-0 rounded-lg">
+                <i className={`${feature.icon} flex items-center justify-center`}></i>
               </div>
 
-              <h3 className="text-xl font-semibold mb-4">{feature.title}</h3>
+              <h3 className="text-xl font-semibold">{feature.title}</h3>
 
-              <p className="leading-6 text-gray-600">{feature.description}</p>
-            </div>
+              <p className="text-base leading-6 text-gray-600">{feature.description}</p>
+            </Card>
           ))}
         </div>
       </div>

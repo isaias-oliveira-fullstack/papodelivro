@@ -9,13 +9,9 @@ import { Toaster } from "@/components/ui/sonner";
 const AppContent = () => {
   return (
     <>
-    
       <Preloader />
-      
-
       <Toaster richColors position="top-right" />
       <Header />
-
       <main
         className="
         min-h-80

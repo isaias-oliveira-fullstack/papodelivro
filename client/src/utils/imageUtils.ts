@@ -1,4 +1,6 @@
-import type { Book } from '@/types';
+import type { Book } from "@/types";
+
+
 
 import lordOfTheRingsCover from '@/assets/lordoftherings.jpg';
 import orwell1984Cover from '@/assets/1984.jpg';
@@ -33,33 +35,56 @@ const localImagesMap: Record<string, string> = {
   '/src/assets/quartodedespejo.jpg': quartoDeDespejoCover,
   '/src/assets/diariodeannefrank.jpg': diarioDeAnneFrankCover,
 };
+const localImages = import.meta.glob("/src/assets/*", {
+  eager: true,
+  import: "default",
+});
 
 export const getImageUrl = (book?: Partial<Book>): string => {
-  if (!book || (!book.full_cover_url && !book.cover_url)) {
-    return 'https://via.placeholder.com/200x300.png?text=Sem+Capa';
+  if (!book) {
+    return "https://placehold.co/200x300/5d21d1/ffffff?text=Sem+Capa";
   }
 
-  const imageUrlCandidate = book.cover_url ?? book.full_cover_url;
+  const imageUrlCandidate =
+    book.cover_url ?? book.full_cover_url;
 
   if (!imageUrlCandidate) {
-    return 'https://via.placeholder.com/200x300.png?text=Sem+Capa';
+    return "https://placehold.co/200x300/5d21d1/ffffff?text=Sem+Capa";
   }
 
-  if (imageUrlCandidate.startsWith('http://') || imageUrlCandidate.startsWith('https://')) {
+  // URL externa
+  if (
+    imageUrlCandidate.startsWith("http://") ||
+    imageUrlCandidate.startsWith("https://")
+  ) {
     return imageUrlCandidate;
   }
 
-  if (imageUrlCandidate.startsWith('/src/assets/')) {
-    const resolved = localImagesMap[imageUrlCandidate];
-    if (resolved) return resolved;
+  // Primeiro tenta no map manual
+  const mappedImage = localImagesMap[imageUrlCandidate];
 
-    console.warn(`[getImageUrl] Asset local não encontrado no mapa para: ${imageUrlCandidate}`);
-  } else {
-    const rawApiUrl = import.meta.env.VITE_API_URL ?? '';
-    const backendBaseUrl = rawApiUrl.replace(/\/$/, '').replace(/\/api$/, '');
-    return `${backendBaseUrl}/files/${imageUrlCandidate}`;
+  if (mappedImage) {
+    return mappedImage;
   }
 
-  console.warn('[getImageUrl] Não foi possível resolver a imagem para o objeto:', book);
-  return 'https://via.placeholder.com/200x300.png?text=Capa+N%C3%A3o+Encontrada';
+  // Depois tenta automático na pasta
+  if (imageUrlCandidate.startsWith("/src/assets/")) {
+    const localImage =
+      localImages[
+        imageUrlCandidate as keyof typeof localImages
+      ];
+
+    if (typeof localImage === "string") {
+      return localImage;
+    }
+  }
+
+  // Backend
+  const rawApiUrl = import.meta.env.VITE_API_URL ?? "";
+
+  const backendBaseUrl = rawApiUrl
+    .replace(/\/$/, "")
+    .replace(/\/api$/, "");
+
+  return `${backendBaseUrl}/files/${imageUrlCandidate}`;
 };

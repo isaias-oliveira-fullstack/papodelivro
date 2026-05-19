@@ -1,5 +1,4 @@
 import AppRoutes from "@/routes/AppRoutes";
-
 import { AuthProvider } from "@/contexts/AuthContext";
 import { FavoritesProvider } from "@/contexts/FavoritesContext";
 

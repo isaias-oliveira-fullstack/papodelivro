@@ -1,12 +1,12 @@
 import { useState, type KeyboardEvent, type MouseEvent } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
+import type { Book } from "@/types";
 import { useAuth } from "@/contexts/AuthContext";
 import { useFavorites } from "@/contexts/FavoritesContext";
-import { Card } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { getImageUrl } from "@/utils/imageUtils";
-import type { Book } from "@/types";
+import { Card } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 
 interface BookCardProps {
   livro: Book;
@@ -31,40 +31,40 @@ const BookCard = ({ livro }: BookCardProps) => {
   };
 
   const handleFavoriteToggle = async (event: MouseEvent<HTMLButtonElement>) => {
-  event.preventDefault();
-  event.stopPropagation();
+    event.preventDefault();
+    event.stopPropagation();
 
-  if (!signed) {
-    toast.info("Faça login para favoritar. Redirecionando...");
-    setTimeout(() => navigate("/login", { state: { from: location } }), 800);
-    return;
-  }
-
-  if (!livro.slug) {
-    toast.error("Não foi possível identificar o livro.");
-    return;
-  }
-
-  const wasFavorite = isBookFavorite;
-
-  try {
-    await toggleFavorite(livro.slug);
-
-    if (wasFavorite) {
-      toast.info("Removido dos favoritos.");
-    } else {
-      toast.success("Adicionado aos favoritos!", {
-        action: {
-          label: "Ver favoritos",
-          onClick: () => navigate("/favoritos"),
-        },
-      });
+    if (!signed) {
+      toast.info("Faça login para favoritar. Redirecionando...");
+      setTimeout(() => navigate("/login", { state: { from: location } }), 800);
+      return;
     }
-  } catch (error) {
-    console.error(error);
-    toast.error("Não foi possível atualizar o favorito.");
-  }
-};
+
+    if (!livro.slug) {
+      toast.error("Não foi possível identificar o livro.");
+      return;
+    }
+
+    const wasFavorite = isBookFavorite;
+
+    try {
+      await toggleFavorite(livro.slug);
+
+      if (wasFavorite) {
+        toast.info("Removido dos favoritos.");
+      } else {
+        toast.success("Adicionado aos favoritos!", {
+          action: {
+            label: "Ver favoritos",
+            onClick: () => navigate("/favoritos"),
+          },
+        });
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error("Não foi possível atualizar o favorito.");
+    }
+  };
 
   const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
     if (event.key === "Enter" || event.key === " ") {
@@ -74,19 +74,20 @@ const BookCard = ({ livro }: BookCardProps) => {
   };
 
   return (
-    <Card 
+    <Card
       tabIndex={0}
       onClick={handleAction}
       onKeyDown={handleKeyDown}
       className="py-0 relative flex h-full w-full flex-col overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm transition duration-300 hover:-translate-y-0.5 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-slate-400 dark:border-slate-700 dark:bg-slate-950 dark:hover:border-slate-600 cursor-pointer"
     >
-      <Button
-        type="button"
+      <i
         onClick={handleFavoriteToggle}
-        className="absolute right-4 top-4 z-10 inline-flex h-11 w-11 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-900 shadow-sm transition hover:bg-slate-100 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100 dark:hover:bg-slate-900"
-      >
-        {isBookFavorite ? "♥" : "♡"}
-      </Button>
+        className={`${
+          isBookFavorite
+            ? "before:text-slate-100! before:font-bold! bg-red-500! border-2! border-red-600!"
+            : ""
+        } lni lni-heart text-xl flex absolute right-4 top-4 z-10 h-11 w-11 items-center justify-center rounded-full border border-slate-200 bg-white shadow-sm transition hover:bg-slate-100 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100 dark:hover:bg-slate-900`}
+      ></i>
 
       <div className="relative h-80 overflow-hidden bg-slate-100 dark:bg-slate-800">
         <img
@@ -116,9 +117,13 @@ const BookCard = ({ livro }: BookCardProps) => {
           </p>
         </div>
 
-        <span className="px-8 py-3.5 text-center bg-primary hover:bg-black text-white transition-all block mt-6 rounded-lg cursor-pointer">
+        <Button 
+          variant="outline" 
+          className="px-8 mt-3 h-10 text-center bg-primary font-semibold text-slate-100 hover:bg-transparent border-2 border-primary hover:text-primary transition cursor-pointer"
+          onClick={handleAction}
+        >
           Ler Resenha
-        </span>
+        </Button>
       </div>
     </Card>
   );

@@ -1,7 +1,9 @@
 import useTemplateScripts from "@/hooks/useTemplateScripts";
+import { Button } from "@/components/ui/button";
 
 const CTA = () => {
   const { navigate } = useTemplateScripts();
+
   return (
     <section
       id="cta"
@@ -24,19 +26,21 @@ const CTA = () => {
           </p>
 
           <div className="flex flex-col sm:flex-row gap-3 justify-center mt-5 sm:mt-6 lg:mt-8">
-              <button
+              <Button
+                variant="outline"
                 onClick={() => navigate("/livros")}
-                className="inline-block bg-primary px-7 py-3 font-medium rounded-full text-white border-2 border-transparent transition-all hover:bg-transparent hover:text-primary hover:border-primary dark:hover:border-white dark:hover:text-white cursor-pointer"
+                className="inline-block bg-primary px-7 h-12 font-semibold rounded-lg text-white border-2 border-primary transition-all hover:bg-transparent hover:text-primary hover:border-primary dark:hover:border-white dark:hover:text-white cursor-pointer"
               >
                 Explorar livros
-              </button>
+              </Button>
 
-              <button
+              <Button
+                variant="outline"
                 onClick={() => navigate("/favoritos")}
-                className="inline-block border-2 border-primary dark:border-white px-7 py-3 font-medium rounded-full text-primary dark:text-white hover:bg-primary hover:text-white dark:hover:bg-white dark:hover:text-slate-900 cursor-pointer"
+                className="inline-block border-2 bg-transparent border-primary dark:border-white px-7 h-12 font-semibold rounded-lg text-primary dark:text-white hover:bg-primary hover:text-white dark:hover:bg-white dark:hover:text-slate-900 cursor-pointer"
               >
                 Meus favoritos
-              </button>
+              </Button>
             </div>
         </div>
       </div>

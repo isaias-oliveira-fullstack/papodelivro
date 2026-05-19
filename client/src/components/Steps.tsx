@@ -1,4 +1,6 @@
-import { Link } from "react-router-dom";
+import useTemplateScripts from "@/hooks/useTemplateScripts";
+import { Card } from "@/components/ui/card";
+
 const stepsData = [
   {
     image: "/assets/images/steps/step-1.png",
@@ -39,6 +41,8 @@ const stepsData = [
 ];
 
 const Steps = () => {
+  const { Link } = useTemplateScripts();
+
   return (
     <section id="etapas" className="py-20" data-delay="200">
       <div className="max-w-auto md:max-w-7xl px-4 mx-auto">
@@ -58,23 +62,23 @@ const Steps = () => {
 
         <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
           {stepsData.map((step, index) => (
-            <div
+            <Card
               key={index}
               className="shadow-lg rounded-lg overflow-hidden border-slate-200 hover:shadow-2xl transition-all duration-300 p-6 bg-gray-200 dark:border-slate-700 dark:bg-slate-900/95"
             >
-              <div className="flex items-center justify-center mb-8">
+              <div className="flex items-center justify-center mb-2">
                 <img
                   src={step.image}
                   alt={step.title}
                   className="w-[70%] rounded-md"
                 />
               </div>
-              <h3 className="text-xl font-semibold mb-4">{step.title}</h3>
-              <p className="leading-6 text-slate-600 dark:text-slate-300 mb-4">{step.description}</p>
+              <h3 className="text-xl font-semibold">{step.title}</h3>
+              <p className="text-base leading-6 text-gray-600">{step.description}</p>
               <Link to={step.link} className="inline-block text-sm text-slate-600 dark:text-slate-300 underline font-semibold hover:text-primary transition-all">
                 {step.readTime}
               </Link>
-            </div>
+            </Card>
           ))}
         </div>
       </div>

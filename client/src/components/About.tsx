@@ -1,4 +1,6 @@
 import useTemplateScripts from "@/hooks/useTemplateScripts";
+import { Button } from "@/components/ui/button";
+
 const About = () => {
   const { navigate } = useTemplateScripts();
 
@@ -11,7 +13,7 @@ const About = () => {
             <img
               className="rounded-xl"
               src="/assets/images/about/about-image.png"
-              alt="#"
+              alt="Sobre - Conectando leitores, ideias e histórias em um só lugar."
             />
           </div>
           <div className="content lg:pr-25">
@@ -31,19 +33,21 @@ const About = () => {
               para quem ama ler.
             </p>
             <div className="flex flex-col md:flex-row gap-3">
-              <button
+              <Button
+                variant="outline"
                 onClick={() => navigate("/sobre")}
-                className="inline-block bg-primary px-7 py-3 font-medium rounded-full text-white border-2 border-transparent transition-all hover:bg-transparent hover:text-primary hover:border-primary dark:hover:border-white dark:hover:text-white cursor-pointer"
+                className="inline-block bg-primary px-7 h-12 font-semibold rounded-lg text-white border-2 border-primary transition-all hover:bg-transparent hover:text-primary hover:border-primary dark:hover:border-white dark:hover:text-white cursor-pointer"
               >
                 Saiba mais
-              </button>
+              </Button>
 
-              <button
+              <Button
+                variant="outline"
                 onClick={() => navigate("/livros")}
-                className="inline-block border-2 border-primary dark:border-white px-7 py-3 font-medium rounded-full text-primary dark:text-white hover:bg-primary hover:text-white dark:hover:bg-white dark:hover:text-slate-900 cursor-pointer"
+                className="inline-block border-2 bg-transparent border-primary dark:border-white px-7 h-12 font-semibold rounded-lg text-primary dark:text-white hover:bg-primary hover:text-white dark:hover:bg-white dark:hover:text-slate-900 cursor-pointer"
               >
                 Explorar livros
-              </button>
+              </Button>
             </div>
           </div>
         </div>

@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, NavLink, Link } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
 
 import { DynamicIcon } from "lucide-react/dynamic";
@@ -183,6 +183,8 @@ if (btn) {
     activeSection,
     pathname: location.pathname,
     navigate,
+    NavLink, 
+    Link,
     signed,
     user,
     handleLogout,

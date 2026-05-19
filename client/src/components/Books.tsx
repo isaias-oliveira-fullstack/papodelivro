@@ -1,6 +1,7 @@
 import type { Book } from "@/types";
 import BookCard from "@/components/BookCard";
 import useTemplateScripts from "@/hooks/useTemplateScripts";
+import { Button } from "@/components/ui/button";
 
 type HeaderProps = {
   loading: boolean;
@@ -29,7 +30,7 @@ const Books = (props: HeaderProps) => {
           </p>
         </div>
         {loading ? (
-          <p className="text-sm text-slate-500 dark:text-slate-400">
+          <p className="text-sm align-center font-semibold text-slate-200">
             Carregando...
           </p>
         ) : (
@@ -40,12 +41,13 @@ const Books = (props: HeaderProps) => {
               ))}
             </div>
             <div className="mt-16 flex justify-center">
-              <button
+              <Button
+                variant="outline"
                 onClick={() => navigate("/livros")}
-                className="rounded-full border border-white px-6 py-3 font-semibold text-white hover:bg-white hover:text-primary transition cursor-pointer"
+                className="rounded-lg border-2 border-white px-6 h-12 font-semibold text-white bg-transparent hover:bg-white hover:text-primary transition cursor-pointer"
               >
                 Ir para a biblioteca de livros
-              </button>
+              </Button>
             </div>
           </>
         )}

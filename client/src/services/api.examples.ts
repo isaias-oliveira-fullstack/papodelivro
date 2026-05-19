@@ -55,7 +55,7 @@ apiClient.interceptors.response.use(
 // 3. EXEMPLOS DE ENDPOINTS
 // ============================================
 
-// ✅ EXEMPLO 1: Listar Livros
+// EXEMPLO 1: Listar Livros
 export const getBooks = async () => {
   try {
     const response = await apiClient.get('/books');
@@ -66,7 +66,7 @@ export const getBooks = async () => {
   }
 };
 
-// ✅ EXEMPLO 2: Buscar Livro por ID
+// EXEMPLO 2: Buscar Livro por ID
 export const getBookById = async (id: string) => {
   try {
     const response = await apiClient.get(`/books/${id}`);
@@ -77,7 +77,7 @@ export const getBookById = async (id: string) => {
   }
 };
 
-// ✅ EXEMPLO 3: Criar Livro (Com Autenticação)
+// EXEMPLO 3: Criar Livro (Com Autenticação)
 export const createBook = async (bookData: {
   title: string;
   author: string;
@@ -93,7 +93,7 @@ export const createBook = async (bookData: {
   }
 };
 
-// ✅ EXEMPLO 4: Atualizar Livro
+// EXEMPLO 4: Atualizar Livro
 export const updateBook = async (
   id: string,
   bookData: Partial<typeof createBook>
@@ -107,7 +107,7 @@ export const updateBook = async (
   }
 };
 
-// ✅ EXEMPLO 5: Deletar Livro
+// EXEMPLO 5: Deletar Livro
 export const deleteBook = async (id: string) => {
   try {
     const response = await apiClient.delete(`/books/${id}`);
@@ -118,7 +118,7 @@ export const deleteBook = async (id: string) => {
   }
 };
 
-// ✅ EXEMPLO 6: Login
+// EXEMPLO 6: Login
 export const login = async (credentials: {
   email: string;
   password: string;
@@ -140,13 +140,13 @@ export const login = async (credentials: {
   }
 };
 
-// ✅ EXEMPLO 7: Logout
+// EXEMPLO 7: Logout
 export const logout = () => {
   localStorage.removeItem('auth_token');
   delete apiClient.defaults.headers.Authorization;
 };
 
-// ✅ EXEMPLO 8: Buscar Perfil do Usuário
+// EXEMPLO 8: Buscar Perfil do Usuário
 export const getCurrentUser = async () => {
   try {
     const response = await apiClient.get('/auth/me');
@@ -157,7 +157,7 @@ export const getCurrentUser = async () => {
   }
 };
 
-// ✅ EXEMPLO 9: Criar Review/Resumo
+// EXEMPLO 9: Criar Review/Resumo
 export const createReview = async (reviewData: {
   book_id: string;
   title: string;
@@ -173,7 +173,7 @@ export const createReview = async (reviewData: {
   }
 };
 
-// ✅ EXEMPLO 10: Listar Favoritos
+// EXEMPLO 10: Listar Favoritos
 export const getFavorites = async () => {
   try {
     const response = await apiClient.get('/favorites');
