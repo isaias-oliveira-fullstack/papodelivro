@@ -11,7 +11,7 @@
     "test": "npm run build && jest --runInBand",
     "migrate": "sequelize db:migrate",
     "seed:prod": "dotenv -e .env.production -- sequelize-cli db:seed:all",
-    "vercel-build": "tsc -p tsconfig.json"
+    "vercel-build": "npm install --include=dev && tsc -p tsconfig.json"
   },
   "keywords": [],
   "author": "Isaias Oliveira",
@@ -30,7 +30,8 @@
     "pg": "^8.16.3",
     "slugify": "^1.6.9",
     "swagger-jsdoc": "^6.2.8",
-    "swagger-ui-express": "^5.0.1"
+    "swagger-ui-express": "^5.0.1",
+    "typescript": "^5.6.2"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.2",
@@ -52,7 +53,6 @@
     "sqlite3": "^6.0.1",
     "supertest": "^7.1.4",
     "ts-node": "^10.9.1",
-    "ts-node-dev": "^2.0.0",
-    "typescript": "^5.6.2"
+    "ts-node-dev": "^2.0.0"
   }
 }
