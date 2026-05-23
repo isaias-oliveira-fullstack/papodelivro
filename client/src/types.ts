@@ -36,6 +36,9 @@ export interface Review {
   user?: User;
   book?: Book;
   createdAt?: string;
+
+  book_id?: number | string;
+  user_id?: number | string;
 }
 
 export interface Summary {
@@ -47,6 +50,18 @@ export interface Summary {
   status?: string;
   slug?: string;
   cover_url?: string;
+  full_cover_url?: string;
+
+  book_id?: number | string;
+  user_id?: number | string;
+}
+
+export interface Favorite {
+  id?: number | string;
+  user_id?: number | string;
+  book_id?: number | string;
+  created_at?: string;
+  updated_at?: string;
 }
 
 export interface AuthCredentials {
