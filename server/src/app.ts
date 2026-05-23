@@ -1,12 +1,29 @@
-import "dotenv/config";
+import dotenv from "dotenv";
 import express, { Request, Response, NextFunction } from "express";
 import cors from "cors";
 import path from "path";
-import db from "./models";
-import allRoutes from "./routes";
-import setupSwagger from "./swagger";
+import multerConfig from "./config/multer";
+let allRoutes: any;
+let setupSwagger: any;
 
+process.env.NODE_ENV = process.env.NODE_ENV || "development";
+
+const baseEnvFile = path.resolve(process.cwd(), ".env");
+
+dotenv.config({ path: baseEnvFile });
+
+const envFile = path.resolve(
+  process.cwd(),
+  process.env.NODE_ENV === "production" ? ".env.production" : ".env.development"
+);
+
+dotenv.config({ path: envFile, override: true });
+
+const db: any = require("./models");
 const { sequelize } = db;
+// carregar rotas e swagger apenas após dotenv e models estarem prontos
+allRoutes = require("./routes").default;
+setupSwagger = require("./swagger").default;
 
 class App {
   public server: express.Express;
@@ -25,6 +42,7 @@ class App {
     // Configurar origens permitidas dinamicamente
     const getAllowedOrigins = () => {
       const baseOrigins = [
+        "https://papodelivro.vercel.app",
         "http://localhost:5173",
         "http://localhost:5174",
         "http://localhost:3000",
@@ -84,7 +102,7 @@ class App {
 
     this.server.use(
       "/files",
-      express.static(path.resolve(__dirname, "uploads"), {
+      express.static(multerConfig.uploadDir, {
         setHeaders: (res) => {
           res.set("Access-Control-Allow-Origin", "*");
         },

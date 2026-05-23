@@ -3,6 +3,7 @@ import authMiddleware from "../middlewares/auth";
 import SummaryController from "../controllers/SummaryController";
 import multer from "multer";
 import multerConfig from "../config/multer";
+import { supabaseUploadMiddleware } from "../middlewares/supabaseUploadMiddleware";
 
 const routes = Router();
 const upload = multer(multerConfig);
@@ -42,7 +43,7 @@ const upload = multer(multerConfig);
  *       201:
  *         description: OK
  */
-routes.post("/summaries", authMiddleware, upload.single('coverImage'), SummaryController.store);
+routes.post("/summaries", authMiddleware, upload.single('coverImage'), supabaseUploadMiddleware, SummaryController.store);
 
 /**
  * @swagger
@@ -88,7 +89,7 @@ routes.get("/my-summaries", authMiddleware, SummaryController.getMySummaries);
  *       200:
  *         description: OK
  */
-routes.patch("/summaries/:summaryId", authMiddleware, upload.single('coverImage'), SummaryController.update);
+routes.patch("/summaries/:summaryId", authMiddleware, upload.single('coverImage'), supabaseUploadMiddleware, SummaryController.update);
 
 /**
  * @swagger

@@ -412,6 +412,56 @@ class BookController {
       return res.status(500).json({ error: 'Erro ao excluir livro.' });
     }
   }
+
+  async getUserBooks(req: Request, res: Response) {
+    try {
+      const { userId } = req.params;
+      const uid = Number(userId);
+      const books = await Book.findAll({
+        where: { user_id: uid },
+        order: [['created_at', 'DESC']],
+      });
+
+      return res.status(200).json(books);
+    } catch (error) {
+      console.error('Erro ao buscar livros do usuário:', error);
+      return res.status(500).json({ error: 'Erro ao buscar livros.' });
+    }
+  }
+
+  async getUserSummaries(req: Request, res: Response) {
+    try {
+      const { userId } = req.params;
+      const uid = Number(userId);
+      const Summary = require('../models').Summary;
+      const summaries = await Summary.findAll({
+        where: { user_id: uid },
+        order: [['created_at', 'DESC']],
+      });
+
+      return res.status(200).json(summaries);
+    } catch (error) {
+      console.error('Erro ao buscar resumos do usuário:', error);
+      return res.status(500).json({ error: 'Erro ao buscar resumos.' });
+    }
+  }
+
+  async getUserReviews(req: Request, res: Response) {
+    try {
+      const { userId } = req.params;
+      const uid = Number(userId);
+      const Review = require('../models').Review;
+      const reviews = await Review.findAll({
+        where: { user_id: uid },
+        order: [['created_at', 'DESC']],
+      });
+
+      return res.status(200).json(reviews);
+    } catch (error) {
+      console.error('Erro ao buscar avaliações do usuário:', error);
+      return res.status(500).json({ error: 'Erro ao buscar avaliações.' });
+    }
+  }
 }
 
 export default new BookController();

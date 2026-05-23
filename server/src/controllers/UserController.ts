@@ -164,6 +164,24 @@ class UserController {
       return res.status(500).json({ error: 'Erro ao excluir usuário.' });
     }
   }
+
+  async getPublicProfile(req: Request, res: Response) {
+    try {
+      const { userId } = req.params;
+      const user = await User.findByPk(userId, {
+        attributes: ['id', 'name', 'email', 'role', 'createdAt'],
+      });
+
+      if (!user) {
+        return res.status(404).json({ error: 'Usuário não encontrado.' });
+      }
+
+      return res.status(200).json(user);
+    } catch (err) {
+      console.error('Erro ao buscar perfil público:', err);
+      return res.status(500).json({ error: 'Erro ao carregar perfil público.' });
+    }
+  }
 }
 
 export default new UserController();

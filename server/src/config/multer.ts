@@ -1,17 +1,37 @@
-import multer from 'multer';
+﻿import fs from 'fs';
+import os from 'os';
 import path from 'path';
-import crypto from 'crypto';
-import type { Request } from 'express';
+import multer from 'multer';
 
-const storage = multer.diskStorage({
-  destination: path.resolve(__dirname, '..', 'uploads'),
-  filename: (req: Request, file: any, cb: (error: Error | null, filename: string) => void) => {
-    const hash = crypto.randomBytes(6).toString('hex');
-    const filename = `${hash}-${file.originalname}`;
-    cb(null, filename);
-  },
-});
+const defaultUploadDir = path.resolve(process.cwd(), 'uploads');
+const serverlessTempDir = path.join(os.tmpdir(), 'uploads');
+
+function ensureDirectory(dir: string) {
+  fs.mkdirSync(dir, { recursive: true });
+  return dir;
+}
+
+function resolveUploadDirectory() {
+  const candidateDirs = [defaultUploadDir, serverlessTempDir];
+
+  for (const dir of candidateDirs) {
+    try {
+      ensureDirectory(dir);
+      fs.accessSync(dir, fs.constants.W_OK);
+      return dir;
+    } catch {
+      continue;
+    }
+  }
+
+  throw new Error('Nenhum diretório de upload gravável disponível.');
+}
+
+const uploadDir = resolveUploadDirectory();
+
+const storage = multer.memoryStorage();
 
 export default {
   storage,
+  uploadDir,
 };

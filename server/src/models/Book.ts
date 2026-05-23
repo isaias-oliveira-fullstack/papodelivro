@@ -1,53 +1,69 @@
-// src/models/Book.js (Versão Corrigida FINAL para full_cover_url como DataTypes.VIRTUAL)
-
 import { Model, DataTypes, Sequelize } from 'sequelize';
 
 class Book extends Model {
-  static initialize(sequelize: Sequelize) {
-    super.init(
-      {
-        id: { // Adicionado id para garantir que está sempre presente
-          type: DataTypes.INTEGER,
-          primaryKey: true,
-          autoIncrement: true,
-        },
-        title: DataTypes.STRING,
-        author: DataTypes.STRING,
-        category: DataTypes.STRING,
-        cover_url: DataTypes.STRING, // Este campo armazena o nome do arquivo OU o caminho relativo do mock
-        status: DataTypes.STRING,
-        slug: DataTypes.STRING,
+  static initialize(sequelize: Sequelize) {
+    super.init(
+      {
+        id: {
+          type: DataTypes.INTEGER,
+          primaryKey: true,
+          autoIncrement: true,
+        },
+        title: DataTypes.STRING,
+        author: DataTypes.STRING,
+        category: DataTypes.STRING,
+        cover_url: DataTypes.STRING,
+        status: DataTypes.STRING,
+        slug: DataTypes.STRING,
         user_id: DataTypes.INTEGER,
-        // CORREÇÃO CRÍTICA AQUI: Definir 'full_cover_url' como um campo VIRTUAL
-        full_cover_url: {
-          type: DataTypes.VIRTUAL,
-          get() {
-            const coverUrl = (this as any).cover_url;
-            if (!coverUrl) return null;
+        full_cover_url: {
+          type: DataTypes.VIRTUAL,
+          get() {
+            try {
+              const { SupabaseStorageService } = require('../services/SupabaseStorageService');
+              const coverUrl = (this as any).cover_url;
+              if (!coverUrl) return null;
 
-            // Se cover_url for um caminho relativo (do mockdata, ex: "/src/assets/...")
-            if (coverUrl.startsWith('/src/assets')) {
-              return coverUrl; // Retorna o caminho relativo diretamente
-            } 
-            // Caso contrário, assume que é um nome de arquivo de upload e monta a URL completa
-            else {
-              // process.env.APP_URL deve ser o URL base do seu backend (ex: https://papodelivro-backend.onrender.com)
-              const backendUrl = (process.env.APP_URL ?? 'http://localhost:3333').replace(/\/+$/, '');
-            return `${backendUrl}/files/${coverUrl}`;
-            }
-          }
-        }
-      },
-      {
-        sequelize,
-        tableName: "books",
-        underscored: true,
-        timestamps: true,
-        createdAt: "created_at",
-        updatedAt: "updated_at",
-        modelName: "Book",
-        // REMOVIDO: O objeto 'getters' separado não é mais necessário para 'full_cover_url'
-        // pois ele foi definido como um DataTypes.VIRTUAL diretamente nos atributos.
+              if (coverUrl.startsWith('/src/assets')) {
+                return coverUrl;
+              } else {
+                const publicUrl = SupabaseStorageService.getPublicUrl(coverUrl);
+                if (publicUrl) return publicUrl;
+
+                // Try to build a public Supabase storage URL directly from SUPABASE_URL
+                const rawSupabase = process.env.SUPABASE_URL;
+                if (rawSupabase) {
+                  const base = rawSupabase.replace(/^https?:\/\/db\./i, 'https://').replace(/\/+$/g, '');
+                  const normalizedFilename = SupabaseStorageService.normalizeStorageFilename(coverUrl);
+                  return `${base}/storage/v1/object/public/book-covers/${encodeURIComponent(normalizedFilename)}`;
+                }
+
+                const isLocalDevelopment =
+                  process.env.NODE_ENV !== 'production' ||
+                  process.env.APP_URL?.includes('localhost') ||
+                  process.env.APP_URL?.includes('127.0.0.1');
+
+                const backendUrl = isLocalDevelopment
+                  ? 'http://localhost:3333'
+                  : process.env.APP_URL || (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'https://papodelivro-backend.vercel.app');
+
+                return `${backendUrl.replace(/\/+$|\s+$/g, '')}/files/${coverUrl}`;
+              }
+            } catch (error) {
+              console.error('Error in full_cover_url getter:', error);
+              return null;
+            }
+          }
+        }
+      },
+      {
+        sequelize,
+        tableName: "books",
+        underscored: true,
+        timestamps: true,
+        createdAt: "created_at",
+        updatedAt: "updated_at",
+        modelName: "Book",
       }
     );
     return this;

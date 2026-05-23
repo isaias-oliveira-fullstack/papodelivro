@@ -7,6 +7,7 @@ import MessageController from "../controllers/MessageController";
 import UserController from "../controllers/UserController";
 import multer from "multer";
 import multerConfig from "../config/multer";
+import { supabaseUploadMiddleware } from "../middlewares/supabaseUploadMiddleware";
 
 const router = Router();
 const upload = multer(multerConfig);
@@ -113,7 +114,7 @@ router.post("/summaries/:summaryId/reject", AdminController.rejectSummary);
  *       200:
  *         description: OK
  */
-router.patch("/books/:bookId/cover", upload.single('coverImage'), AdminController.updateBookCover);
+router.patch("/books/:bookId/cover", upload.single('coverImage'), supabaseUploadMiddleware, AdminController.updateBookCover);
 
 /**
  * @swagger
@@ -153,7 +154,7 @@ router.get('/books', BookController.adminListBooks);
  *       201:
  *         description: OK
  */
-router.post('/books', upload.single('coverImage'), BookController.adminStore);
+router.post('/books', upload.single('coverImage'), supabaseUploadMiddleware, BookController.adminStore);
 
 /**
  * @swagger
@@ -207,7 +208,7 @@ router.get('/books/:bookId', BookController.getBookById);
  *       200:
  *         description: OK
  */
-router.patch('/books/:bookId', upload.single('coverImage'), BookController.adminUpdateBook);
+router.patch('/books/:bookId', upload.single('coverImage'), supabaseUploadMiddleware, BookController.adminUpdateBook);
 
 /**
  * @swagger

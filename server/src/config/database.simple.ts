@@ -2,8 +2,16 @@ import dotenv from 'dotenv';
 import path from 'path';
 import { Dialect } from 'sequelize';
 
-dotenv.config({ path: path.resolve(process.cwd(), '.env.production'), override: true });
-dotenv.config({ path: path.resolve(process.cwd(), '.env'), override: true });
+process.env.NODE_ENV = process.env.NODE_ENV || 'development';
+
+dotenv.config({ path: path.resolve(process.cwd(), '.env') });
+dotenv.config({
+  path: path.resolve(
+    process.cwd(),
+    process.env.NODE_ENV === 'production' ? '.env.production' : '.env.development'
+  ),
+  override: true,
+});
 
 type DatabaseConfig = {
   dialect: Dialect;
@@ -55,12 +63,14 @@ const config: DatabaseConfig = {
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME || 'papodelivro',
   url: process.env.DATABASE_URL,
-  dialectOptions: process.env.NODE_ENV === 'production' ? {
-    ssl: {
-      require: true,
-      rejectUnauthorized: false,
-    },
-  } : undefined,
+  dialectOptions: ['1', 'true', 'yes'].includes((process.env.DB_SSL || '').toLowerCase())
+    ? {
+        ssl: {
+          require: true,
+          rejectUnauthorized: process.env.DB_SSL_REJECT_UNAUTHORIZED !== 'false',
+        },
+      }
+    : undefined,
   pool: {
     max: 5,
     min: 0,
