@@ -122,22 +122,6 @@ Exemplos de testes implementados:
 * integração com API
 * validação de endpoints
 
-## Coleção Postman
-
-A coleção Postman está disponível na pasta:
-
-```bash id="h6s7bk"
-./docs/PapoDeLivro-Backend.postman_collection.json
-```
-
-Inclui testes para:
-
-* autenticação
-* livros
-* resenhas
-* favoritos
-* avaliações
-
 ## Variáveis de Ambiente
 
 Crie um arquivo `.env` na raiz do projeto:
