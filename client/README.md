@@ -163,7 +163,7 @@ https://papodelivro-backend.vercel.app
 Crie um arquivo `.env` na raiz do projeto:
 
 ```env id="qbqswq"
-VITE_API_URL=https://papodelivro-backend.vercel.app/api
+VITE_API_URL=your_url_api
 
 VITE_SUPABASE_URL=your_url
 
