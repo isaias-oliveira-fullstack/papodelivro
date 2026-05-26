@@ -87,17 +87,22 @@ Dados armazenados:
 * Favoritos
 * Avaliações
 
-## Autenticação com JWT
 
-Após o login, a API retorna um token JWT que deve ser utilizado nas rotas protegidas.
+## Documentação Swagger
 
-Exemplo:
+A API possui documentação utilizando Swagger para facilitar testes e visualização das rotas disponíveis.
 
-```bash id="mrm8ic"
-Authorization: Bearer <seu_token>
+Documentação local:
+
+```bash id="31k4ys"
+http://localhost:3333/api-docs
 ```
 
-As rotas autenticadas utilizam middleware para validação do token e autorização do usuário.
+Deploy da API:
+
+```bash id="y1r42s"
+https://papodelivro-backend.vercel.app
+```
 
 ## Testes Automatizados
 
@@ -121,6 +126,20 @@ Exemplos de testes implementados:
 * criação de resenhas
 * integração com API
 * validação de endpoints
+
+## Coleção Postman
+
+A coleção Postman está disponível na pasta:
+
+[./docs/PapoDeLivro-Backend.postman_collection.json](./docs/PapoDeLivro-Backend.postman_collection.json)
+
+Inclui testes para:
+
+* autenticação
+* livros
+* resenhas
+* favoritos
+* avaliações
 
 ## Variáveis de Ambiente
 
