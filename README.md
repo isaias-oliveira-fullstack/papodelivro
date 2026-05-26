@@ -91,7 +91,6 @@ papodelivro/
 │   ├── package.json
 │   └── tsconfig.json
 │
-├── supabase/
 ├── .gitignore
 ├── README.md
 ├── package.json
