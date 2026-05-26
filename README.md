@@ -322,3 +322,9 @@ Veja o arquivo **[LICENSE](./LICENSE)** para mais detalhes.
 
 Projeto desenvolvido por **Isaias Oliveira**.  
 Conecte-se comigo no **[in/isaias-oliveira-dev](https://www.linkedin.com/in/isaias-oliveira-dev/)**
+
+## Considerações Finais
+
+O **LAB Sprint (LAB 365)** foi uma experiência prática que estimulou a tomada de decisões, a organização de código e a evolução constante durante o desenvolvimento do projeto, onde o desafio foi transformar ideias em uma aplicação funcional em pouco tempo, lidando com escolhas técnicas e aprendizados ao longo do processo.
+
+> Esse tipo de iniciativa reforça a importância de consistência, adaptação e mentalidade de construção contínua no desenvolvimento de software.
