@@ -1,171 +1,245 @@
-# 🛠️ Papo de Livro – Backend
+# Papo de Livro – Backend
 
-API RESTful para gerenciamento de usuários, livros, resenhas, favoritos e avaliações, parte do projeto **Papo de Livro**.
+Backend da plataforma **Papo de Livro**, desenvolvido utilizando **Node.js, Express e TypeScript**.
 
----
+A API REST é responsável pelo gerenciamento de usuários, livros, resenhas, favoritos e avaliações, além da autenticação segura com JWT e integração com Supabase/PostgreSQL.
 
-## 🧰 Tecnologias Utilizadas
+O projeto foi estruturado utilizando boas práticas de organização modular, tipagem forte com TypeScript e separação de responsabilidades, simulando uma aplicação backend moderna e escalável.
 
-- Node.js + Express
-- TypeScript
-- PostgreSQL (via Supabase)
-- JWT para autenticação
-- Swagger para documentação
-- Postman para testes
-- Jest + Supertest (testes automatizados)
+## Tecnologias Utilizadas
 
----
+* Node.js
+* Express
+* TypeScript
+* PostgreSQL (Supabase)
+* JWT Authentication
+* Swagger
+* Postman
+* Jest
+* Supertest
 
-## 📂 Estrutura de Pastas
+## Estrutura de Pastas
 
-papodelivro/server/  
-├── src/  
-│   ├── controllers/      # Lógica das rotas  
-│   ├── models/           # Tipos e entidades (TypeScript)  
-│   ├── routes/           # Definição das rotas  
-│   ├── middlewares/      # Middlewares personalizados  
-│   ├── config/           # Configurações gerais  
-│   ├── database/         # Conexão com Supabase  
-│   └── server.ts         # Inicialização do servidor  
-├── tests/                # Testes com Jest/Supertest  
-├── docs/                 # Coleção Postman  
-├── swagger.ts            # Configuração Swagger  
-└── .env  
+```bash id="abqf2d"
+papodelivro/server/
+├── src/
+│   ├── controllers/      # Lógica das rotas
+│   ├── routes/           # Definição das rotas
+│   ├── middlewares/      # Middlewares personalizados
+│   ├── services/         # Regras de negócio
+│   ├── utils/            # Funções utilitárias
+│   ├── types/            # Tipagens TypeScript
+│   ├── config/           # Configurações gerais
+│   ├── database/         # Integração com Supabase
+│   └── server.ts         # Inicialização do servidor
+│
+├── tests/                # Testes automatizados
+├── docs/                 # Coleção Postman
+├── swagger.ts            # Configuração Swagger
+├── package.json
+├── tsconfig.json
+└── .env
+```
 
----
+## Funcionalidades da API
 
-## 🧠 Funcionalidades da API
+### Livros
 
-### 📖 Livros
-- Listar livros
-- Buscar por título, autor ou gênero
-- Exibir detalhes de um livro
+* Listar livros
+* Buscar livros por título
+* Buscar por autor ou gênero
+* Exibir detalhes de um livro
 
-### ✍️ Resenhas
-- Criar resenha
-- Listar resenhas por livro
-- Excluir resenha
+### Resenhas
 
-### ⭐ Avaliações
-- Avaliar livros (1 a 5)
-- Calcular média de avaliações
+* Criar resenhas
+* Editar resenhas
+* Listar resenhas
+* Excluir resenhas
 
-### ❤️ Favoritos
-- Adicionar aos favoritos
-- Listar favoritos do usuário
+### Avaliações
 
-### 🔐 Usuários
-- Cadastro e login
-- Autenticação com JWT
+* Avaliar livros de 1 a 5 estrelas
+* Calcular média de avaliações
+* Exibir avaliações por livro
 
----
+### Favoritos
 
-## 🗄️ Supabase
+* Adicionar livros aos favoritos
+* Remover favoritos
+* Listar favoritos do usuário
 
-Este projeto utiliza o Supabase como banco de dados PostgreSQL.
+### Usuários
 
-O backend estará disponível em:  
-http://localhost:3333
+* Cadastro de usuários
+* Login com autenticação JWT
+* Proteção de rotas privadas
 
----
+## Banco de Dados
 
-## 🔐 Autenticação com JWT
+O projeto utiliza o **Supabase** como banco de dados PostgreSQL para persistência das informações da plataforma.
 
-- Após o login, o token JWT é retornado  
-- Use o token no header para acessar rotas protegidas  
+Dados armazenados:
 
+* Usuários
+* Livros
+* Resenhas
+* Favoritos
+* Avaliações
+
+## Autenticação com JWT
+
+Após o login, a API retorna um token JWT que deve ser utilizado nas rotas protegidas.
+
+Exemplo:
+
+```bash id="mrm8ic"
 Authorization: Bearer <seu_token>
+```
 
----
+As rotas autenticadas utilizam middleware para validação do token e autorização do usuário.
 
-## 📄 Documentação Swagger
+## Documentação Swagger
 
-Acesse a documentação Swagger para visualizar e testar as rotas da API:
+A API possui documentação utilizando Swagger para facilitar testes e visualização das rotas disponíveis.
 
+Documentação local:
+
+```bash id="31k4ys"
 http://localhost:3333/api-docs
+```
 
-A documentação é gerada automaticamente a partir das rotas.
+Deploy da API:
 
----
+```bash id="y1r42s"
+https://papodelivro-backend.vercel.app
+```
 
-## 🧪 Testes Automatizados
+## Testes Automatizados
+
+O projeto utiliza **Jest** e **Supertest** para testes automatizados da API.
 
 Executar os testes:
 
+```bash id="llw2jh"
 npm test
+```
 
-Exemplos de testes:
+Exemplos de testes implementados:
 
-- autenticação de usuário  
-- criação de resenhas  
-- rotas protegidas  
-- integração com API  
+* autenticação de usuários
+* rotas protegidas
+* criação de resenhas
+* integração com API
+* validação de endpoints
 
----
+## Coleção Postman
 
-## 📬 Coleção Postman
+A coleção Postman está disponível na pasta:
 
-A coleção pronta para testes está disponível em:
-
+```bash id="h6s7bk"
 ./docs/PapoDeLivro-Backend.postman_collection.json
+```
 
-Inclui:
+Inclui testes para:
 
-- Autenticação  
-- CRUD de livros  
-- Resenhas  
-- Favoritos  
-- Avaliações  
+* autenticação
+* livros
+* resenhas
+* favoritos
+* avaliações
 
----
+## Variáveis de Ambiente
 
-## ⚙️ Variáveis de Ambiente
+Crie um arquivo `.env` na raiz do projeto:
 
-Crie um arquivo `.env` na raiz:
+```env id="i9z01l"
+PORT=3333
 
-PORT=3333  
-SUPABASE_URL=your_url  
-SUPABASE_KEY=your_key  
-JWT_SECRET=your_secret  
+SUPABASE_URL=your_url
 
----
+SUPABASE_KEY=your_key
 
-## ▶️ Rodando Localmente
+JWT_SECRET=your_secret
+```
+
+## Rodando Localmente
 
 ### 1. Clone o repositório
 
-git clone https://github.com/seu-repositorio/papodelivro.git  
-cd papodelivro/server  
+```bash id="4n0lhx"
+git clone https://github.com/isaias-oliveira-fullstack/papodelivro.git
+```
 
-### 2. Instale as dependências
+### 2. Entre na pasta do backend
 
-npm install  
-
-### 3. Rode a aplicação
-
-npm run dev  
-
----
-
-### ✅ Pronto! Backend rodando.
+```bash id="8c2dxw"
+cd papodelivro/server
+```
 
 ---
 
-## 📌 Observações
+### 3. Instale as dependências
 
-- API integrada com Supabase  
-- Estrutura preparada para escalabilidade  
-- Código tipado com TypeScript  
-- Pronto para deploy na Vercel  
+```bash id="shy3w5"
+npm install
+```
 
----
+### 4. Execute a aplicação
 
-## 👨‍💻 Autor
+```bash id="d3g8v2"
+npm run dev
+```
 
-Projeto desenvolvido por **Isaias Oliveira**
+## Observações
 
----
+* API integrada com Supabase
+* Código totalmente tipado com TypeScript
+* Estrutura modular e escalável
+* Integração completa com frontend React
+* Pronto para deploy em ambiente serverless
+* Organização baseada em controllers, services e middlewares
 
-## 📄 Licença
+## Aprendizados
 
-Este projeto é de uso educacional.
+Durante o desenvolvimento deste backend foi possível praticar:
+
+* Construção de APIs REST
+* Organização modular de projetos Node.js
+* TypeScript no backend
+* Integração com PostgreSQL
+* Supabase
+* JWT Authentication
+* Middlewares personalizados
+* Testes automatizados
+* Swagger
+* Estruturação de aplicações escaláveis
+* Deploy com Vercel
+
+## Deploy
+
+O backend pode ser publicado utilizando:
+
+* Vercel Serverless Functions
+* Node.js Hosting
+* Render
+* Railway
+
+- **Vercel Serverless Functions (Backend):** https://papodelivro-backend.vercel.app
+
+> Não é necessário instalação após publicação — basta acessar o link.
+
+## Contribuição
+
+Se quiser contribuir com feedback ou sugestões, fique à vontade para abrir uma **[Issue](https://github.com/isaias-oliveira-fullstack/papodelivro/issues)** ou **[enviar ideias](https://github.com/isaias-oliveira-fullstack/papodelivro/pulls)**. 
+
+## Licença
+
+Este projeto está licenciado sob a **Licença MIT**.
+
+Veja o arquivo **[LICENSE](../LICENSE)** para mais detalhes.
+
+## Autor
+
+Projeto desenvolvido por **Isaias Oliveira**.  
+Conecte-se comigo no **[in/isaias-oliveira-dev](https://www.linkedin.com/in/isaias-oliveira-dev/)**
