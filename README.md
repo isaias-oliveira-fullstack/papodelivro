@@ -103,21 +103,22 @@ papodelivro/
 * **React 18** (componentização e interface)
 * **Node.js + Express** (API REST)
 * **Tailwind CSS** (estilização moderna)
+* **Shadcn/UI** (componentes de interface moderna) 
 * **Vite** (build e desenvolvimento frontend)
 * **Supabase/PostgreSQL** (persistência de dados)
 * **JWT** (autenticação segura)
 * **Axios** (requisições HTTP)
 
-## Implementação com React & Tailwind CSS
+## Implementação com React, Tailwind CSS e Shadcn/UI
 
 A interface do projeto foi construída utilizando componentes React
-combinados com utilitários do **Tailwind CSS**, garantindo uma UI
+combinados com utilitários do **Tailwind CSS** e **Shadcn/UI**, garantindo uma UI
 moderna, organizada e consistente.
 
 ### Card de Livro
 
 ```tsx
-<div className="bg-zinc-900 rounded-xl shadow-lg p-4">
+<Card className="bg-zinc-900 rounded-xl shadow-lg p-4">
   <img src={book.cover} alt={book.title} />
 
   <h2 className="text-lg font-semibold mt-2">
@@ -128,7 +129,7 @@ moderna, organizada e consistente.
     {book.author}
   </p>
 
-  <button
+  <Button
     className="
       bg-emerald-600
       hover:bg-emerald-700
@@ -138,15 +139,15 @@ moderna, organizada e consistente.
       rounded-lg
     "
   >
-    Ver detalhes
-  </button>
-</div>
+    Ler Resumo
+  </Button>
+</Card>
 ```
 
 ### Busca Dinâmica
 
 ```tsx
-<input
+<Input
   type="text"
   placeholder="Buscar livros..."
   className="
