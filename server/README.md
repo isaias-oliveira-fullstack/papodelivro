@@ -99,22 +99,6 @@ Authorization: Bearer <seu_token>
 
 As rotas autenticadas utilizam middleware para validação do token e autorização do usuário.
 
-## Documentação Swagger
-
-A API possui documentação utilizando Swagger para facilitar testes e visualização das rotas disponíveis.
-
-Documentação local:
-
-```bash id="31k4ys"
-http://localhost:3333/api-docs
-```
-
-Deploy da API:
-
-```bash id="y1r42s"
-https://papodelivro-backend.vercel.app
-```
-
 ## Testes Automatizados
 
 O projeto utiliza **Jest** e **Supertest** para testes automatizados da API.
@@ -124,6 +108,11 @@ Executar os testes:
 ```bash id="llw2jh"
 npm test
 ```
+
+Testes incluídos:
+
+* tests/auth.test.js
+* tests/summaries.test.js
 
 Exemplos de testes implementados:
 
