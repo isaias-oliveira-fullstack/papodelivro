@@ -1,73 +1,256 @@
-# React + TypeScript + Vite
+# Papo de Livro – Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Frontend da plataforma **Papo de Livro**, desenvolvido utilizando **React, TypeScript e Tailwind CSS**.
 
-Currently, two official plugins are available:
+A aplicação é responsável pela interface da plataforma, permitindo que usuários naveguem pelo catálogo de livros, publiquem resenhas, realizem avaliações, adicionem favoritos e interajam com os conteúdos da aplicação através de uma experiência moderna e dinâmica.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+O projeto foi estruturado utilizando boas práticas de componentização, organização modular e integração com API REST, simulando uma aplicação frontend moderna e escalável.
 
-## React Compiler
+## Tecnologias Utilizadas
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+* React 18
+* TypeScript
+* Tailwind CSS
+* Vite
+* React Router DOM
+* Axios
+* Supabase
+* Context API
 
-## Expanding the ESLint configuration
+## Estrutura de Pastas
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash id="3o0f5h"
+papodelivro/client/
+├── src/
+│   ├── components/      # Componentes reutilizáveis
+│   ├── pages/           # Páginas da aplicação
+│   ├── services/        # Integração com API
+│   ├── routes/          # Rotas da aplicação
+│   ├── hooks/           # Hooks personalizados
+│   ├── contexts/        # Gerenciamento de contexto
+│   ├── types/           # Tipagens TypeScript
+│   ├── App.tsx          # Componente principal
+│   └── main.tsx         # Inicialização da aplicação
+│
+├── public/
+├── package.json
+├── vite.config.ts
+├── tailwind.config.js
+├── tsconfig.json
+└── .env
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Funcionalidades da Aplicação
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### Livros
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+* Listar livros
+* Visualizar detalhes dos livros
+* Buscar livros por título
+* Navegar pelas categorias
+
+### Resenhas
+
+* Criar resenhas
+* Editar resenhas
+* Excluir resenhas
+* Visualizar resenhas de usuários
+
+### Avaliações
+
+* Avaliar livros com estrelas
+* Visualizar média de avaliações
+* Exibir avaliações por livro
+
+### Favoritos
+
+* Adicionar livros aos favoritos
+* Remover favoritos
+* Listar favoritos do usuário
+
+### Usuários
+
+* Cadastro de usuários
+* Login com autenticação JWT
+* Controle de autenticação
+* Rotas privadas
+
+## Interface da Aplicação
+
+A interface foi construída utilizando componentes React combinados com utilitários do Tailwind CSS para garantir uma aplicação organizada, moderna e consistente.
+
+### Card de Livro
+
+```tsx id="v7lz6w"
+<div className="bg-zinc-900 rounded-xl shadow-lg p-4">
+  <img src={book.cover} alt={book.title} />
+
+  <h2 className="text-lg font-semibold mt-2">
+    {book.title}
+  </h2>
+
+  <p className="text-zinc-400">
+    {book.author}
+  </p>
+
+  <button
+    className="
+      bg-emerald-600
+      hover:bg-emerald-700
+      transition
+      px-4
+      py-2
+      rounded-lg
+    "
+  >
+    Ver detalhes
+  </button>
+</div>
 ```
+
+### Busca Dinâmica
+
+```tsx id="26c35z"
+<input
+  type="text"
+  placeholder="Buscar livros..."
+  className="
+    w-full
+    p-3
+    rounded-lg
+    border
+    border-zinc-700
+    bg-zinc-900
+  "
+/>
+```
+
+### Sistema de Avaliação
+
+```tsx id="esj93t"
+<div className="flex gap-1">
+  {Array.from({ length: 5 }).map((_, index) => (
+    <Star
+      key={index}
+      className={
+        index < rating
+          ? "fill-yellow-400"
+          : "fill-zinc-700"
+      }
+    />
+  ))}
+</div>
+```
+
+## Integração com API
+
+O frontend consome a API REST do projeto para gerenciamento de:
+
+* Usuários
+* Livros
+* Resenhas
+* Favoritos
+* Avaliações
+
+Backend disponível em:
+
+```bash id="gwn0jq"
+https://papodelivro-backend.vercel.app
+```
+
+## Variáveis de Ambiente
+
+Crie um arquivo `.env` na raiz do projeto:
+
+```env id="qbqswq"
+VITE_API_URL=https://papodelivro-backend.vercel.app/api
+
+VITE_SUPABASE_URL=your_url
+
+VITE_SUPABASE_KEY=your_key
+```
+
+## Rodando Localmente
+
+### 1. Clone o repositório
+
+```bash id="uzn2wa"
+git clone https://github.com/isaias-oliveira-fullstack/papodelivro.git
+```
+
+### 2. Entre na pasta do frontend
+
+```bash id="xg02l9"
+cd papodelivro/client
+```
+
+### 3. Instale as dependências
+
+```bash id="lsyhrg"
+npm install
+```
+
+### 4. Execute a aplicação
+
+```bash id="7x2fj4"
+npm run dev
+```
+
+Frontend disponível em:
+
+```bash id="cfu0g2"
+http://localhost:5173
+```
+
+## Observações
+
+* Interface construída com React e Tailwind CSS
+* Código totalmente tipado com TypeScript
+* Estrutura modular e escalável
+* Integração completa com backend Node.js
+* Organização baseada em componentes e serviços
+* Pronto para deploy com Vercel
+
+## Aprendizados
+
+Durante o desenvolvimento deste frontend foi possível praticar:
+
+* Componentização com React
+* Organização modular de aplicações frontend
+* TypeScript no frontend
+* Integração com APIs REST
+* Gerenciamento de autenticação
+* Context API
+* Tailwind CSS
+* Consumo de APIs com Axios
+* Estruturação de aplicações escaláveis
+* Deploy com Vercel
+
+## Deploy
+
+O frontend pode ser publicado utilizando:
+
+* Vercel
+* Netlify
+* GitHub Pages
+
+Deploy atual da aplicação:
+
+* **Vercel (Frontend):** https://papodelivro.vercel.app
+
+> Não é necessário instalação após publicação — basta acessar o link.
+
+## Contribuição
+
+Se quiser contribuir com feedback ou sugestões, fique à vontade para abrir uma **[Issue](https://github.com/isaias-oliveira-fullstack/papodelivro/issues)** ou **[enviar ideias](https://github.com/isaias-oliveira-fullstack/papodelivro/pulls)**. 
+
+## Licença
+
+Este projeto está licenciado sob a **Licença MIT**.
+
+Veja o arquivo **[LICENSE](../LICENSE)** para mais detalhes.
+
+## Autor
+
+Projeto desenvolvido por **Isaias Oliveira**.  
+Conecte-se comigo no **[in/isaias-oliveira-dev](https://www.linkedin.com/in/isaias-oliveira-dev/)**
