@@ -11,15 +11,15 @@
 
 ## Descrição do projeto
 
-O **Papo de Livro** é uma plataforma social de resenhas de livros
-desenvolvida utilizando **TypeScript, React e Node.js**.
+O **Papo de Livro** é uma plataforma social de resenhas de livros desenvolvida durante o **LAB Sprint (LAB 365)**, um evento prático de desenvolvimento **Frontend** com foco em construção de aplicações reais e aplicação de boas práticas de desenvolvimento.
 
-A aplicação foi construída com foco em organização, componentização e
-integração entre frontend e backend, utilizando tecnologias modernas
-como **Tailwind CSS**, **Vite** e **Supabase** para proporcionar uma
-experiência mais dinâmica e próxima de aplicações reais.
+Durante o **LAB Sprint**, o projeto foi evoluído com o uso de **TypeScript**, **React** e **Node.js**, com foco em organização de código, componentização e integração entre frontend e backend.
 
-A arquitetura do projeto é dividida em três partes:
+A aplicação utiliza tecnologias modernas como **Tailwind CSS**, **Vite** e **Supabase**, proporcionando uma experiência de desenvolvimento próxima de cenários reais de mercado, incluindo consumo de **API**, autenticação e persistência de dados.
+
+O objetivo do projeto foi simular uma plataforma social funcional para leitores, aplicando conceitos de arquitetura, escalabilidade e boas práticas de desenvolvimento Full Stack.
+
+### A arquitetura do projeto é dividida em três partes:
 
 1. **Backend (Node.js + Express + TypeScript)**
    Responsável pela API REST, autenticação JWT e regras de negócio.
