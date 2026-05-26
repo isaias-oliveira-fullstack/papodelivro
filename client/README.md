@@ -1,6 +1,6 @@
 # Papo de Livro – Frontend
 
-Frontend da plataforma **Papo de Livro**, desenvolvido utilizando **React, TypeScript e Tailwind CSS**.
+Frontend da plataforma **Papo de Livro**, desenvolvido utilizando **React, TypeScript, Tailwind CSS e Shadcn/UI**.
 
 A aplicação é responsável pela interface da plataforma, permitindo que usuários naveguem pelo catálogo de livros, publiquem resenhas, realizem avaliações, adicionem favoritos e interajam com os conteúdos da aplicação através de uma experiência moderna e dinâmica.
 
@@ -11,6 +11,7 @@ O projeto foi estruturado utilizando boas práticas de componentização, organi
 * React 18
 * TypeScript
 * Tailwind CSS
+* Shadcn/UI
 * Vite
 * React Router DOM
 * Axios
@@ -77,12 +78,12 @@ papodelivro/client/
 
 ## Interface da Aplicação
 
-A interface foi construída utilizando componentes React combinados com utilitários do Tailwind CSS para garantir uma aplicação organizada, moderna e consistente.
+A interface foi construída utilizando componentes React combinados com utilitários do Tailwind CSS e Shadcn/UI para garantir uma aplicação organizada, moderna e consistente.
 
 ### Card de Livro
 
 ```tsx id="v7lz6w"
-<div className="bg-zinc-900 rounded-xl shadow-lg p-4">
+<Card className="bg-zinc-900 rounded-xl shadow-lg p-4">
   <img src={book.cover} alt={book.title} />
 
   <h2 className="text-lg font-semibold mt-2">
@@ -93,7 +94,7 @@ A interface foi construída utilizando componentes React combinados com utilitá
     {book.author}
   </p>
 
-  <button
+  <Button
     className="
       bg-emerald-600
       hover:bg-emerald-700
@@ -103,15 +104,15 @@ A interface foi construída utilizando componentes React combinados com utilitá
       rounded-lg
     "
   >
-    Ver detalhes
-  </button>
+    Ler Resumo
+  </Button>
 </div>
 ```
 
 ### Busca Dinâmica
 
 ```tsx id="26c35z"
-<input
+<Input
   type="text"
   placeholder="Buscar livros..."
   className="
