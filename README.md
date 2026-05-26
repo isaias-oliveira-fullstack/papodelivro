@@ -11,57 +11,57 @@
 
 ## Descrição do projeto
 
-Este projeto implementa uma **plataforma social de resenhas de livros**
-utilizando **TypeScript, React e Node.js**.
+O **Papo de Livro** é uma plataforma social de resenhas de livros
+desenvolvida utilizando **TypeScript, React e Node.js**.
 
-A aplicação foi evoluída com o uso de **Tailwind CSS**, **Vite** e
-**Supabase**, proporcionando uma interface moderna, responsiva e mais
-próxima de aplicações reais.
+A aplicação foi construída com foco em organização, componentização e
+integração entre frontend e backend, utilizando tecnologias modernas
+como **Tailwind CSS**, **Vite** e **Supabase** para proporcionar uma
+experiência mais dinâmica e próxima de aplicações reais.
 
 A arquitetura do projeto é dividida em três partes:
 
-1. **Backend (Node.js + Express + TypeScript)**\
+1. **Backend (Node.js + Express + TypeScript)**
    Responsável pela API REST, autenticação JWT e regras de negócio.
 
-2. **Frontend (React + TypeScript + Tailwind CSS)**\
+2. **Frontend (React + TypeScript + Tailwind CSS)**
    Interface responsável pela interação com o usuário, incluindo:
 
-   - Catálogo de livros
-   - Sistema de resenhas
-   - Favoritos
-   - Avaliações
-   - Busca dinâmica
-   - Layout responsivo
+   * Catálogo de livros
+   * Sistema de resenhas
+   * Favoritos
+   * Avaliações
+   * Busca dinâmica
 
-3. **Banco de Dados (Supabase/PostgreSQL)**\
+3. **Banco de Dados (Supabase/PostgreSQL)**
    Responsável pelo armazenamento de:
 
-   - Usuários
-   - Livros
-   - Resenhas
-   - Favoritos
-   - Avaliações
+   * Usuários
+   * Livros
+   * Resenhas
+   * Favoritos
+   * Avaliações
 
-O objetivo é simular uma plataforma social moderna para leitores,
-aplicando boas práticas de organização, tipagem e construção de
-interfaces modernas.
+O objetivo do projeto é simular uma plataforma social moderna voltada
+para leitores, aplicando boas práticas de desenvolvimento Full Stack,
+tipagem forte com TypeScript e organização modular da aplicação.
 
 ## Preview
 
 Interface da plataforma com:
 
-- Catálogo responsivo de livros
-- Sistema de avaliações com estrelas
-- CRUD de resenhas
-- Busca dinâmica de livros
-- Favoritos personalizados
-- Integração com API REST
-- Layout responsivo com Tailwind CSS
-- Persistência de dados com Supabase
+* Catálogo de livros
+* Sistema de avaliações com estrelas
+* CRUD de resenhas
+* Busca dinâmica de livros
+* Favoritos personalizados
+* Integração com API REST
+* Interface desenvolvida com Tailwind CSS
+* Persistência de dados com Supabase
 
 ## Estrutura do projeto
 
-```
+```bash
 papodelivro/
 ├── client/
 │   ├── src/
@@ -99,20 +99,20 @@ papodelivro/
 
 ## Tecnologias utilizadas
 
-- **TypeScript** (tipagem forte, sem `any`)
-- **React 18** (componentização e gerenciamento de interface)
-- **Node.js + Express** (API REST)
-- **Tailwind CSS** (responsividade e estilização moderna)
-- **Vite** (build e desenvolvimento frontend)
-- **Supabase/PostgreSQL** (persistência de dados)
-- **JWT** (autenticação segura)
-- **Axios** (requisições HTTP)
+* **TypeScript** (tipagem forte)
+* **React 18** (componentização e interface)
+* **Node.js + Express** (API REST)
+* **Tailwind CSS** (estilização moderna)
+* **Vite** (build e desenvolvimento frontend)
+* **Supabase/PostgreSQL** (persistência de dados)
+* **JWT** (autenticação segura)
+* **Axios** (requisições HTTP)
 
 ## Implementação com React & Tailwind CSS
 
 A interface do projeto foi construída utilizando componentes React
 combinados com utilitários do **Tailwind CSS**, garantindo uma UI
-moderna, responsiva e consistente.
+moderna, organizada e consistente.
 
 ### Card de Livro
 
@@ -177,7 +177,7 @@ moderna, responsiva e consistente.
 </div>
 ```
 
-### Responsividade com Tailwind CSS
+### Grid de Livros
 
 ```tsx
 <div className="
@@ -191,11 +191,11 @@ moderna, responsiva e consistente.
 
 ### Estilização com Tailwind CSS
 
-- **Espaçamentos:** p-4, gap-4, mb-4
-- **Sombras:** shadow-lg
-- **Bordas:** rounded-xl, border
-- **Responsividade:** grid-cols-1 md:grid-cols-2 lg:grid-cols-4
-- **Transições:** transition hover:bg-emerald-700
+* **Espaçamentos:** p-4, gap-4, mb-4
+* **Sombras:** shadow-lg
+* **Bordas:** rounded-xl, border
+* **Grid Layout:** grid-cols-1 md:grid-cols-2 lg:grid-cols-4
+* **Transições:** transition hover:bg-emerald-700
 
 ## Como executar o projeto
 
@@ -279,22 +279,21 @@ http://localhost:3333
 
 Durante o desenvolvimento desta atividade foi possível praticar:
 
-- Tipagem forte utilizando TypeScript
-- Integração frontend/backend
-- Estilização com Tailwind CSS
-- Responsividade com grid
-- Consumo de APIs REST
-- CRUD completo
-- Integração com Supabase
-- Autenticação JWT
-- Organização de projetos React e Node.js
-- Arquitetura modular
-- Clean Code
+* Tipagem forte utilizando TypeScript
+* Integração frontend/backend
+* Estilização com Tailwind CSS
+* Consumo de APIs REST
+* CRUD completo
+* Integração com Supabase
+* Autenticação JWT
+* Organização de projetos React e Node.js
+* Arquitetura modular
+* Clean Code
 
 ## Resultado
 
 A utilização de React junto ao Tailwind CSS permitiu criar uma interface
-mais moderna, interativa e responsiva, mantendo organização estrutural,
+mais moderna e interativa, mantendo organização estrutural,
 reutilização de componentes e boa experiência do usuário.
 
 A aplicação evoluiu para uma plataforma social completa voltada para
@@ -307,7 +306,7 @@ O projeto pode ser publicado utilizando:
 - **Vercel (Frontend):** https://papodelivro.vercel.app
 - **Vercel Serverless Functions (Backend):** https://papodelivro-backend.vercel.app
 
-> Não é necessário instalação após publicação — basta acessar o link.
+> Não é necessário instalação após publicação - basta acessar o link.
 
 ## Contribuição
 
