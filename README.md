@@ -50,7 +50,7 @@ tipagem forte com TypeScript e organização modular da aplicação.
 
 ### Demonstração da Aplicação
 
-Confira abaixo como o **Papo de Livro** transforma ideias em landing pages de forma rápida e prática.  
+Confira abaixo como o **Papo de Livro** facilita a criação e o compartilhamento de resenhas de livros de forma simples, rápida e intuitiva.  
 Acompanhe o funcionamento pelo GIF a seguir:
 
 ![Preview do projeto](./client/public/preview.gif)
