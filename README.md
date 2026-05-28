@@ -48,7 +48,14 @@ tipagem forte com TypeScript e organização modular da aplicação.
 
 ## Preview
 
-Interface da plataforma com:
+### Demonstração da Aplicação
+
+Confira abaixo como o **Papo de Livro** transforma ideias em landing pages de forma rápida e prática.  
+Acompanhe o funcionamento pelo GIF a seguir:
+
+![Preview do projeto](./client/public/preview.gif)
+
+### Interface da plataforma com:
 
 * Catálogo de livros
 * Sistema de avaliações com estrelas
